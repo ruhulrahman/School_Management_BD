@@ -1,0 +1,27 @@
+.top_home_menu_area{	
+	background: #59b2e0;
+}
+.top_home_menu{}
+.home_main_menu{
+}
+.home_main_menu ul{
+	margin:0;
+	padding: 0;
+	list-style: none;
+}
+.home_main_menu ul li{
+	float: left;
+	padding: 15px 0px;
+}
+.home_main_menu ul li a{
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #FFF;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    margin-right: 40px;
+}
+.home_main_menu ul li a:hover{
+	color: green;
+}
