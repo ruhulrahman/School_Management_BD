@@ -334,6 +334,17 @@
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
+                      <i class="icon-book"></i>
+                      <span>Schools</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ url('/school_reg_req') }}">Registration Requests</a></li>
+                      <li><a class="" href="{{ url('/scl_list') }}">Schools List</a></li>
+                  </ul>
+              </li>
+              <li class="sub-menu">
+                  <a href="javascript:;" class="">
                       <i class="icon-th"></i>
                       <span>Class Routine</span>
                       <span class="arrow"></span>

@@ -36,6 +36,9 @@ Route::post('/select-ajax', ['as'=>'select-ajax','uses'=>'SuperAdminController@s
 ///===============================================================================
 
 
+Route::middleware('auth')->group(function(){
+	
+});
 
 
 
@@ -50,9 +53,6 @@ Route::get('/teachers', 'SchoolController@teachers');
 Route::post('/scl-registration-submit', 'SchoolController@scl_registration_submit');
 
 
-Route::middleware('auth')->group(function(){
-	
-});
 
 
 

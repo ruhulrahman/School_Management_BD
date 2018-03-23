@@ -84,7 +84,7 @@ class SchoolController extends Controller
             
             DB::table('schools_reg')->insert($tableInfo);
             
-            return response()->json(['success' => '!!! School Registtration Submited successfully !!!']);
+            return response()->json(['success' => 'School Registration Successfully Submited']);
             //Session::put('success', 'School Registtration Submited successfully');
             //return Redirect::to('/school_reg');
         else:

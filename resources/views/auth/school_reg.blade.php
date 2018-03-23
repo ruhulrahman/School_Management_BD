@@ -125,20 +125,14 @@ select.form-control:not([size]):not([multiple]) {
 
 						<div class="row">
 							<div class="col-xs-12">
-								            <?php
-            $message = Session::get('message');
-            if ($message) {
-                echo $message;
-                Session::put('message', null);
-            }
-            ?>
+								<div class="print-success-msg alert alert-success  text-center" style="display: none;"></div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-				<form action="{{ url('/scl-registration-submit') }}" method="post" id="login-form" class="form-horizontal" role="form" style="display: block;">
+				<form action="{{ url('/scl-registration-submit') }}" method="post" id="scl_form" class="form-horizontal" role="form" style="display: block;">
 					{{ csrf_field() }}
                 <div class="form-group">
                     <label for="scl_name" class="col-sm-3 control-label">School's Name</label>
