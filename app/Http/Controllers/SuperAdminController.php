@@ -202,12 +202,14 @@ class SuperAdminController extends Controller {
     }
 
     public function school_reg_req() {
-        $scl_req = DB::table('schools_reg')                    
+        $scl_reqs = DB::table('schools_reg')
+                    ->leftJoin('thana', 'thana.id', '=', 'schools_reg.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
                     ->where('status', '0')
-                    ->orderBy('id', 'desc')
+                    ->orderBy('schools_reg.id', 'desc')
                     ->get();
         $index_content = view('admin.scl_request')
-                ->with('scl_req', $scl_req);
+                ->with('scl_reqs', $scl_reqs);
 
         return view('admin.index')
                         ->with('page_content', $index_content);
