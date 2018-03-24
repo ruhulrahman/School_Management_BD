@@ -1,5 +1,7 @@
 @extends('index')
 @section('content')
+@section('title', 'SMS Login')
+
 <style>
     .form-signin
 {

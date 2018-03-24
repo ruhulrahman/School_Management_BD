@@ -340,8 +340,14 @@
                   </a>
                   <ul class="sub">
                       <li><a class="" href="{{ url('/school_reg_req') }}">Registration Requests</a></li>
-                      <li><a class="" href="{{ url('/scl_list') }}">Schools List</a></li>
+                      <li><a class="" href="{{ url('/scl_list') }}">Active Schools List</a></li>
                   </ul>
+              </li>
+              <li class="sub-menu">
+                  <a href="{{ asset('/classes_list') }}" class="">
+                      <i class="icon-th"></i>
+                      <span>Classes</span>
+                  </a>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
@@ -554,7 +560,8 @@
                 }
             });
 
-            $('#wbd_form').on('submit', function (e) {
+//User registration
+            $('#sssp').on('submit', function (e) {
                 e.preventDefault();
                 data = $(this).serialize();
                 url = $(this).attr('action');
@@ -567,9 +574,8 @@
                         console.log(data);
                         if ($.isEmptyObject(data.errors)) {
                             console.log(data.success);
-                            $('#wbd_form')[0].reset();
+                            $('#sssp')[0].reset();
                             $('.text-danger').remove();
-//                            $('.control-group').removeClass('has-error').removeClass('has-success');
                             $('.print-success-msg').html(data.success);
                             $('.print-success-msg').css('display', 'block');
                         } else {
@@ -578,6 +584,34 @@
                     }
                 });
             });
+
+
+
+            $('#scl_form').on('submit', function (e) {
+                e.preventDefault();
+                data = $(this).serialize();
+                url = $(this).attr('action');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                        if ($.isEmptyObject(data.errors)) {
+                            console.log(data.success);
+                            $('#scl_form')[0].reset();
+                            $('.text-danger').remove();
+                            $('.print-success-msg').html(data.success);
+                            $('.print-success-msg').css('display', 'block');
+                        } else {
+                            printMessageErrors(data.errors);
+                        }
+                    }
+                });
+            });
+
+
 
             function printMessageErrors(msg) {
                 $('.text-danger').remove();

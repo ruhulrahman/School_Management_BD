@@ -1,5 +1,6 @@
 @extends('index')
 @section('content')
+@section('title', 'School Registration')
 <style>
 	
 .panel-login {

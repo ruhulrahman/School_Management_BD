@@ -36,7 +36,9 @@ class SchoolController extends Controller
     public function registration()
     {
         
-        return view('auth.registration');
+        $reg =  view('auth.registration');
+        $home_content = view('home_content');
+        return view('index')->with('content', $reg);
     }
 
     public function school_reg()
@@ -91,6 +93,9 @@ class SchoolController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         endif;
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

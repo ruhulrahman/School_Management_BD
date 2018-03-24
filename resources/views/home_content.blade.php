@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-
+@section('title', 'School Management System')
 <style>
 	.option_list{
 		margin: 0;

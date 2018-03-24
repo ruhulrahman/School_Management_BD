@@ -80,7 +80,7 @@
                         <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
                         <div class="tab-pane" id="tabsleft-tab1">
                             <h3>Create a Thana</h3>
-                            <form action="{{ URL::to('/thana-create') }}" method="post" id="wbd_form">
+                            <form action="{{ URL::to('/thana-create') }}" method="post" id="scl_form">
                                 {{ csrf_field() }}
 
                                 <div class="control-group">
