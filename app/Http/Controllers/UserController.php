@@ -38,6 +38,9 @@ class UserController extends Controller
                     'phone.unique' => 'This phone number already taken.',
                     'create_thana_id.required' => 'You can\'t leave this empty.',
         ]);
+        $validator2 = Validator::make($request->all(), [
+                    'scl_code' => 'unique:schools_reg,scl_code',
+                        ]);
 
         if ($validator->passes()):
         	if ($request->gender == 'male') {            
@@ -52,7 +55,7 @@ class UserController extends Controller
             $tableInfo['email'] = $request->email;
             $tableInfo['phone'] = $request->phone;
             $tableInfo['scl_code'] = $request->scl_code;
-            $tableInfo['password'] = $request->password;
+            $tableInfo['password'] = md5($request->password);
             $tableInfo['date_of_birth'] = $request->date_of_birth;
             $tableInfo['gender'] = $request->gender;
             $tableInfo['religion'] = $request->religion;
@@ -62,8 +65,14 @@ class UserController extends Controller
             $tableInfo['pic'] = $img_path;
             $tableInfo['user_type'] = 'student';
             $tableInfo['status'] = $rand;
+
+            if ($validator2->passes()) {
+                return response()->json(['errors' => array('scl_code' => 'Not match')]);
+            }else{
+                DB::table('users')->insert($tableInfo);
+            }
           
-            DB::table('users')->insert($tableInfo);
+            
             
             return response()->json(['success' => 'User Registration Successfully Submited']);
             //Session::put('success', 'School Registtration Submited successfully');
@@ -101,7 +110,7 @@ class UserController extends Controller
             $tableInfo['email'] = $request->email_tcr;
             $tableInfo['phone'] = $request->phone_tcr;
             $tableInfo['scl_code'] = $request->scl_code_tcr;
-            $tableInfo['password'] = $request->password_tcr;
+            $tableInfo['password'] = md5($request->password_tcr);
             $tableInfo['date_of_birth'] = $request->date_of_birth_tcr;
             $tableInfo['gender'] = $request->gender_tcr;
             $tableInfo['religion'] = $request->religion_tcr;

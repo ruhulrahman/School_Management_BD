@@ -235,7 +235,10 @@ class SuperAdminController extends Controller {
     public function scl_approve($id){
         $update = DB::table('schools_reg')
                     ->where('id', $id)
-                    ->update(['status' => '1']);
+                    ->update([
+                        'status' => '1',
+                        'scl_expire_date' => date('Y-m-d', strtotime("+30 days")),
+                    ]);
         if($update){
             Session::put('message', 'Aproved!!!');
             return Redirect::to('/school_reg_req');
@@ -394,9 +397,21 @@ class SuperAdminController extends Controller {
                     ->update(['status' => '0']);
         if($update){
             Session::put('message', 'User Deactivated!!!');
-            return Redirect::to('/new_users');
+            return Redirect::to('/active_users');
         }else{
             Session::put('error', 'User Not Deactivated!!!');
+        }
+    }
+
+    public function user_delete($id){
+        $delete = DB::table('users')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'User Deleted!!!');
+            return Redirect::to('/new_users');
+        }else{
+            Session::put('error', 'User Not Deleted!!!');
         }
     }
 

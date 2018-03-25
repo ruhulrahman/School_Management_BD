@@ -48,6 +48,7 @@ Route::middleware('superadmin')->group(function(){
 	Route::get('/user_active/{id}', 'SuperAdminController@user_active');		
 	Route::get('/active_users', 'SuperAdminController@active_users');
 	Route::get('/user_deactive/{id}', 'SuperAdminController@user_deactive');
+	Route::get('/user_delete/{id}', 'SuperAdminController@user_delete');
 
 	//for create location
 	Route::get('/division/{id}', 'SuperAdminController@division');

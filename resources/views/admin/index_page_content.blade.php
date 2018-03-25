@@ -23,7 +23,7 @@
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Dashboard
+                     Dashboard  {{ date('Y-m-d', strtotime("+30 days")) }}
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -64,7 +64,20 @@
                                     ->count();
                                 ?>
                             </div>
-                            <div class="status">Shool Requests</div>
+                            <div class="status">Schools Requests</div>
+                        </a>
+                    </div>
+                    <div class="metro-nav-block nav-block-red">
+                        <a data-original-title="" href="{{ url('/scl_list') }}">
+                            <i class="icon-bar-chart"></i>
+                            <div class="info">
+                                <?php
+                                    echo $count =DB::table('schools_reg')
+                                    ->where('status', '1')
+                                    ->count();
+                                ?>
+                            </div>
+                            <div class="status">Active Schools</div>
                         </a>
                     </div>
                     <div class="metro-nav-block nav-block-orange">

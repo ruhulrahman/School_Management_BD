@@ -82,7 +82,8 @@ class SchoolController extends Controller
             $tableInfo['thana_id'] = $request->create_thana_id;
             $tableInfo['scl_address'] = $request->scl_address;
             $tableInfo['scl_expire_date'] = $request->scl_expire_date;
-            $tableInfo['scl_password'] = $request->scl_password;
+            $tableInfo['scl_password'] = md5($request->scl_password);
+            $tableInfo['created_at'] = date('Y-m-d h:i:s');
             
             DB::table('schools_reg')->insert($tableInfo);
             

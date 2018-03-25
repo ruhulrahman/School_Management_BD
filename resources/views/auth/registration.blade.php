@@ -181,12 +181,12 @@ select.form-control:not([size]):not([multiple]) {
                         <div class="row">
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender" value="female">Male
+                                    <input type="radio" name="gender" id="gender" value="male">Male
                                 </label>
                             </div>
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender" value="male">Female
+                                    <input type="radio" name="gender" id="gender" value="female">Female
                                 </label>
                             </div>
                             <div class="col-sm-4">

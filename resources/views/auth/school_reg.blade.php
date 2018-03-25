@@ -167,7 +167,7 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="scl_establish_date" class="col-sm-3 control-label">School's Establish Date</label>
                     <div class="col-sm-9">
-                        <input type="text" name="scl_establish_date" id="scl_establish_date" placeholder="School's Establish Date: exp: 20-02-1995" class="form-control">
+                        <input type="date" name="scl_establish_date" id="scl_establish_date" placeholder="School's Establish Date: exp: 20-02-1995" class="form-control">
                     </div>
                 </div>
 
