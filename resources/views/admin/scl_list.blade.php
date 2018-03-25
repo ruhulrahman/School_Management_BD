@@ -1,6 +1,6 @@
 @extends('index')
 @section('page_content')
-@section('title', 'School Request Approve')
+@section('title', 'Active School Lists')
 
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
@@ -105,13 +105,13 @@
                                            <td>{{ $scl_req->scl_email }}</td>
                                            <td>{{ $scl_req->scl_phone }}</td>
                                            <td>{{ $scl_req->district_name.', '.$scl_req->thana_name.', '.$scl_req->scl_address }}</td>
-                                           <td><a class="btn btn-success" href="{{ url('/scl_approve') }}/{{ $scl_req->id }}">Approve</a></td>
+                                           <td><a class="btn btn-success" href="{{ url('/scl_deactive') }}/{{ $scl_req->id }}">Deactive</a></td>
                                            <td><a class="btn btn-danger" href="{{ url('/scl_delete') }}/{{ $scl_req->id }}">Delete</a></td>
                                        </tr>
                                        @endforeach
                                       @elseif(count($scl_reqs) == 0)
                                          <tr class="aler alert-danger">
-                                             <td colspan="7" style="text-align: center;">There is no School Request now</td>
+                                             <td colspan="7" style="text-align: center;">There is no active School now</td>
                                          </tr>
                                       @endif
                                      </tbody>

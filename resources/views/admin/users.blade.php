@@ -1,6 +1,6 @@
 @extends('index')
 @section('page_content')
-@section('title', 'School Request Approve')
+@section('title', 'Active School Lists')
 
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
@@ -96,22 +96,22 @@
                                       <?php
                                         $i = 1;
                                       ?>
-                                      @if (count($scl_reqs) > 0)
-                                        @foreach ($scl_reqs as $scl_req)
+                                      @if (count($new_users) > 0)
+                                        @foreach ($new_users as $user)
                                        <tr class="">
                                            <td>{{ $i++ }}</td>
-                                           <td>{{ $scl_req->scl_name }}</td>
-                                           <td>{{ $scl_req->scl_code }}</td>
-                                           <td>{{ $scl_req->scl_email }}</td>
-                                           <td>{{ $scl_req->scl_phone }}</td>
-                                           <td>{{ $scl_req->district_name.', '.$scl_req->thana_name.', '.$scl_req->scl_address }}</td>
-                                           <td><a class="btn btn-success" href="{{ url('/scl_approve') }}/{{ $scl_req->id }}">Approve</a></td>
-                                           <td><a class="btn btn-danger" href="{{ url('/scl_delete') }}/{{ $scl_req->id }}">Delete</a></td>
+                                           <td>{{ $user->name }}</td>
+                                           <td>{{ $user->scl_code }}</td>
+                                           <td>{{ $user->email }}</td>
+                                           <td>{{ $user->phone }}</td>
+                                           <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
+                                           <td><a class="btn btn-danger" href="{{ url('/user_deactive') }}/{{ $user->id }}">Dective</a></td>
+                                           <td><a class="btn btn-danger" href="{{ url('/user_delete') }}/{{ $user->id }}">Delete</a></td>
                                        </tr>
                                        @endforeach
-                                      @elseif(count($scl_reqs) == 0)
+                                      @elseif(count($new_users) == 0)
                                          <tr class="aler alert-danger">
-                                             <td colspan="7" style="text-align: center;">There is no School Request now</td>
+                                             <td colspan="7" style="text-align: center;">There is no active School now</td>
                                          </tr>
                                       @endif
                                      </tbody>

@@ -207,6 +207,7 @@ class SuperAdminController extends Controller {
                     ->rightJoin('district', 'district.id', '=', 'thana.district_id')
                     ->where('status', '0')
                     ->orderBy('schools_reg.id', 'desc')
+                    ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
                     ->get();
         $index_content = view('admin.scl_request')
                 ->with('scl_reqs', $scl_reqs);
@@ -214,6 +215,206 @@ class SuperAdminController extends Controller {
         return view('admin.index')
                         ->with('page_content', $index_content);
     }
+
+    public function scl_list() {
+        $scl_reqs = DB::table('schools_reg')
+                    ->leftJoin('thana', 'thana.id', '=', 'schools_reg.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status', '1')
+                    ->orderBy('schools_reg.id', 'desc')
+                    ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+        $index_content = view('admin.scl_list')
+                ->with('scl_reqs', $scl_reqs);
+
+        return view('admin.index')
+                        ->with('page_content', $index_content);
+    }
+
+
+    public function scl_approve($id){
+        $update = DB::table('schools_reg')
+                    ->where('id', $id)
+                    ->update([
+                        'status' => '1',
+                        'scl_expire_date' => date('Y-m-d', strtotime("+30 days")),
+                    ]);
+        if($update){
+            Session::put('message', 'Aproved!!!');
+            return Redirect::to('/school_reg_req');
+        }else{
+            Session::put('error', 'School Not Approved!!!');
+        }
+    }
+
+
+    public function scl_deactive($id){
+        $update = DB::table('schools_reg')
+                    ->where('id', $id)
+                    ->update(['status' => '0']);
+        if($update){
+            Session::put('message', 'School deactived successfully!!!');
+            return Redirect::to('/scl_list');
+        }else{
+            Session::put('error', 'School not deactived!!!');
+        }
+    }
+
+    public function scl_delete($id){
+        $delete = DB::table('schools_reg')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'School deleted successfully!!!');
+            return Redirect::to('/school_reg_req');
+        }else{
+            Session::put('error', 'School not deleted successfully!!!');
+        }
+    }
+
+
+    public function classes_list(){
+        $superAdminId = Session::get('superAdminId');
+        if ($superAdminId == Null) {
+            return Redirect::to('/super/')->send();
+        }else{
+            $classes = DB::table('class')->get();
+            $classes_list = view('admin.classes_list')->with('classes', $classes);
+            return view('admin.index')
+                ->with('page_content', $classes_list);
+        }
+    }
+
+    public function class_create(Request $request){
+        $validator = Validator::make($request->all(), [
+                    'class_name' => 'unique:class,class_name',
+                        ], [
+                    'class_name.unique' => 'This class name already added.',
+        ]);
+
+        if ($validator->passes()):
+            $class_name = $request->class_name;
+            
+            DB::table('class')->insert(['class_name' => $class_name]);
+            
+            return response()->json(['success' => '!!! Class name successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+
+    public function class_delete($id){
+        $delete = DB::table('class')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'Class name deleted successfully!!!');
+            return Redirect::to('/classes_list');
+        }else{
+            Session::put('error', 'Class name not deleted successfully!!!');
+        }
+    }
+
+
+    public function class_edit($id){
+        $class = DB::table('class')
+                    ->where('id', $id)
+                    ->get();
+        $classes = DB::table('class')->get();
+        $classes_list = view('admin.class_edit')
+                    ->with('class', $class)
+                    ->with('classes', $classes);
+        return view('admin.index')
+            ->with('page_content', $classes_list);
+    }
+
+
+    public function class_update(Request $request){
+        $validator = Validator::make($request->all(), [
+                    'class_name' => 'unique:class,class_name',
+                        ], [
+                    'class_name.unique' => 'This class name already added.',
+        ]);
+
+        if ($validator->passes()):
+            $class_name = $request->class_name;
+            $class_id = $request->class_id;
+            
+            DB::table('class')
+            ->where('id', $class_id)
+            ->update(['class_name' => $class_name]);
+            
+            return response()->json(['success' => '!!! Class name successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+
+    public function new_users()
+    {
+        $new_users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','!=', '1')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_users_page = view('admin.new_users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
+    }
+    public function active_users()
+    {
+        $new_users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_users_page = view('admin.users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
+    }
+
+    public function user_active($id){
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '1']);
+        if($update){
+            Session::put('message', 'User Activated!!!');
+            return Redirect::to('/new_users');
+        }else{
+            Session::put('error', 'User Not Activated!!!');
+        }
+    }
+
+    public function user_deactive($id){
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '0']);
+        if($update){
+            Session::put('message', 'User Deactivated!!!');
+            return Redirect::to('/active_users');
+        }else{
+            Session::put('error', 'User Not Deactivated!!!');
+        }
+    }
+
+    public function user_delete($id){
+        $delete = DB::table('users')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'User Deleted!!!');
+            return Redirect::to('/new_users');
+        }else{
+            Session::put('error', 'User Not Deleted!!!');
+        }
+    }
+
 
     public function logoutSuper() {
         Session::put('SuperAdminName', null);

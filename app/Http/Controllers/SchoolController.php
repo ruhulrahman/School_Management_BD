@@ -36,7 +36,9 @@ class SchoolController extends Controller
     public function registration()
     {
         
-        return view('auth.registration');
+        $reg =  view('auth.registration');
+        $home_content = view('home_content');
+        return view('index')->with('content', $reg);
     }
 
     public function school_reg()
@@ -80,17 +82,21 @@ class SchoolController extends Controller
             $tableInfo['thana_id'] = $request->create_thana_id;
             $tableInfo['scl_address'] = $request->scl_address;
             $tableInfo['scl_expire_date'] = $request->scl_expire_date;
-            $tableInfo['scl_password'] = $request->scl_password;
+            $tableInfo['scl_password'] = md5($request->scl_password);
+            $tableInfo['created_at'] = date('Y-m-d h:i:s');
             
             DB::table('schools_reg')->insert($tableInfo);
             
-            return response()->json(['success' => '!!! School Registtration Submited successfully !!!']);
+            return response()->json(['success' => 'School Registration Successfully Submited']);
             //Session::put('success', 'School Registtration Submited successfully');
             //return Redirect::to('/school_reg');
         else:
             return response()->json(['errors' => $validator->errors()]);
         endif;
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

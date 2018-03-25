@@ -1,5 +1,6 @@
 @extends('index')
 @section('content')
+@section('title', 'School Registration')
 <style>
 	
 .panel-login {
@@ -125,20 +126,14 @@ select.form-control:not([size]):not([multiple]) {
 
 						<div class="row">
 							<div class="col-xs-12">
-								            <?php
-            $message = Session::get('message');
-            if ($message) {
-                echo $message;
-                Session::put('message', null);
-            }
-            ?>
+								<div class="print-success-msg alert alert-success  text-center" style="display: none;"></div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-				<form action="{{ url('/scl-registration-submit') }}" method="post" id="login-form" class="form-horizontal" role="form" style="display: block;">
+				<form action="{{ url('/scl-registration-submit') }}" method="post" id="scl_form" class="form-horizontal" role="form" style="display: block;">
 					{{ csrf_field() }}
                 <div class="form-group">
                     <label for="scl_name" class="col-sm-3 control-label">School's Name</label>
@@ -172,7 +167,7 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="scl_establish_date" class="col-sm-3 control-label">School's Establish Date</label>
                     <div class="col-sm-9">
-                        <input type="text" name="scl_establish_date" id="scl_establish_date" placeholder="School's Establish Date: exp: 20-02-1995" class="form-control">
+                        <input type="date" name="scl_establish_date" id="scl_establish_date" placeholder="School's Establish Date: exp: 20-02-1995" class="form-control">
                     </div>
                 </div>
 

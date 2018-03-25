@@ -1,5 +1,6 @@
 @extends('index')
 @section('page_content')
+
           
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
@@ -22,7 +23,7 @@
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Dashboard
+                     Dashboard  {{ date('Y-m-d', strtotime("+30 days")) }}
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -63,13 +64,45 @@
                                     ->count();
                                 ?>
                             </div>
-                            <div class="status">Shool Requests</div>
+                            <div class="status">Schools Requests</div>
+                        </a>
+                    </div>
+                    <div class="metro-nav-block nav-block-red">
+                        <a data-original-title="" href="{{ url('/scl_list') }}">
+                            <i class="icon-bar-chart"></i>
+                            <div class="info">
+                                <?php
+                                    echo $count =DB::table('schools_reg')
+                                    ->where('status', '1')
+                                    ->count();
+                                ?>
+                            </div>
+                            <div class="status">Active Schools</div>
                         </a>
                     </div>
                     <div class="metro-nav-block nav-block-orange">
-                        <a data-original-title="" href="#">
+                        <a data-original-title="" href="{{ url('/active_users') }}">
                             <i class="icon-user"></i>
-                            <div class="info">321</div>
+                            <div class="info">
+                                <?php
+                                    echo $count =DB::table('users')
+                                    ->where('status', '1')
+                                    ->count();
+                                ?>
+                            </div>
+                            <div class="status">Total Active User</div>
+                        </a>
+                    </div>
+                    <div class="metro-nav-block nav-block-orange">
+                        <a data-original-title="" href="{{ url('/new_users') }}">
+                            <i class="icon-user"></i>
+                            <div class="info">
+                                <?php
+                                    echo $count =DB::table('users')
+                                    ->where('status', '!=','1')
+                                    ->count();
+                                ?>
+                            </div>
                             <div class="status">New User</div>
                         </a>
                     </div>
@@ -87,6 +120,8 @@
                             <div class="status">Comments</div>
                         </a>
                     </div>
+                </div>
+                <div class="metro-nav">
                     <div class="metro-nav-block nav-block-blue double">
                         <a data-original-title="" href="#">
                             <i class="icon-eye-open"></i>
@@ -94,8 +129,6 @@
                             <div class="status">Unique Visitor</div>
                         </a>
                     </div>
-                </div>
-                <div class="metro-nav">
                     <div class="metro-nav-block nav-block-blue">
                         <a data-original-title="" href="#">
                             <i class="icon-shopping-cart"></i>
