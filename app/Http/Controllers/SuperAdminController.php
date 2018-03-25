@@ -271,10 +271,15 @@ class SuperAdminController extends Controller {
 
 
     public function classes_list(){
-        $classes = DB::table('class')->get();
-        $classes_list = view('admin.classes_list')->with('classes', $classes);
-        return view('admin.index')
-            ->with('page_content', $classes_list);
+        $superAdminId = Session::get('superAdminId');
+        if ($superAdminId == Null) {
+            return Redirect::to('/super/')->send();
+        }else{
+            $classes = DB::table('class')->get();
+            $classes_list = view('admin.classes_list')->with('classes', $classes);
+            return view('admin.index')
+                ->with('page_content', $classes_list);
+        }
     }
 
     public function class_create(Request $request){
@@ -342,6 +347,59 @@ class SuperAdminController extends Controller {
             return response()->json(['errors' => $validator->errors()]);
         endif;
     }
+
+
+    public function new_users()
+    {
+        $new_users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','!=', '1')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_users_page = view('admin.new_users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
+    }
+    public function active_users()
+    {
+        $new_users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_users_page = view('admin.users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
+    }
+
+    public function user_active($id){
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '1']);
+        if($update){
+            Session::put('message', 'User Activated!!!');
+            return Redirect::to('/new_users');
+        }else{
+            Session::put('error', 'User Not Activated!!!');
+        }
+    }
+
+    public function user_deactive($id){
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '0']);
+        if($update){
+            Session::put('message', 'User Deactivated!!!');
+            return Redirect::to('/new_users');
+        }else{
+            Session::put('error', 'User Not Deactivated!!!');
+        }
+    }
+
 
     public function logoutSuper() {
         Session::put('SuperAdminName', null);

@@ -22,31 +22,48 @@ Auth::routes();
 Route::get('/super/', 'SuperAdminController@index');
 Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
 Route::get('/logout-super', 'SuperAdminController@logoutSuper');
-Route::get('/location', 'SuperAdminController@location');
-Route::get('/class-routine', 'SuperAdminController@class_routine');
-Route::get('/school_reg_req', 'SuperAdminController@school_reg_req');
-Route::get('/scl_list', 'SuperAdminController@scl_list');
-Route::get('/scl_approve/{id}', 'SuperAdminController@scl_approve');
-Route::get('/scl_delete/{id}', 'SuperAdminController@scl_delete');
-Route::get('/scl_deactive/{id}', 'SuperAdminController@scl_deactive');
-Route::get('/classes_list', 'SuperAdminController@classes_list');
-Route::get('/class_delete/{id}', 'SuperAdminController@class_delete');
-Route::get('/class_edit/{id}', 'SuperAdminController@class_edit');
+
+
+
+
 
 Route::post('/super-admin-login/', 'SuperAdminController@superAdminLogin');
-Route::post('/country-create', 'SuperAdminController@country_create');
-Route::post('/division-create', 'SuperAdminController@division_create');
-Route::post('/district-create', 'SuperAdminController@district_create');
-Route::post('/thana-create', 'SuperAdminController@thana_create');
-Route::post('/class-create', 'SuperAdminController@class_create');
-Route::post('/class-update', 'SuperAdminController@class_update');
 
-Route::post('/select-ajax', ['as'=>'select-ajax','uses'=>'SuperAdminController@selectAjax']);
 ///===============================================================================
 
 
-Route::middleware('auth')->group(function(){
-	
+Route::middleware('superadmin')->group(function(){
+	//Super Admin Controller==========================================================
+	Route::get('/location', 'SuperAdminController@location');
+	Route::get('/class-routine', 'SuperAdminController@class_routine');
+	Route::get('/school_reg_req', 'SuperAdminController@school_reg_req');
+	Route::get('/scl_approve/{id}', 'SuperAdminController@scl_approve');
+	Route::get('/scl_delete/{id}', 'SuperAdminController@scl_delete');
+	Route::get('/scl_deactive/{id}', 'SuperAdminController@scl_deactive');
+	Route::get('/classes_list', 'SuperAdminController@classes_list');
+	Route::get('/class_delete/{id}', 'SuperAdminController@class_delete');
+	Route::get('/class_edit/{id}', 'SuperAdminController@class_edit');
+	Route::get('/scl_list', 'SuperAdminController@scl_list');
+	Route::get('/new_users', 'SuperAdminController@new_users');
+	Route::get('/user_active/{id}', 'SuperAdminController@user_active');		
+	Route::get('/active_users', 'SuperAdminController@active_users');
+	Route::get('/user_deactive/{id}', 'SuperAdminController@user_deactive');
+
+	//for create location
+	Route::get('/division/{id}', 'SuperAdminController@division');
+	Route::get('/district/{id}', 'SuperAdminController@district');
+	Route::get('/thana/{id}', 'SuperAdminController@thana');
+
+
+	Route::post('/country-create', 'SuperAdminController@country_create');
+	Route::post('/division-create', 'SuperAdminController@division_create');
+	Route::post('/district-create', 'SuperAdminController@district_create');
+	Route::post('/thana-create', 'SuperAdminController@thana_create');
+	Route::post('/class-create', 'SuperAdminController@class_create');
+	Route::post('/class-update', 'SuperAdminController@class_update');
+
+	Route::post('/select-ajax', ['as'=>'select-ajax','uses'=>'SuperAdminController@selectAjax']);
+
 });
 
 
@@ -79,9 +96,6 @@ Route::post('/user_registration_teacher', 'UserController@user_registration_teac
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/log', 'HomeController@log');
 
-//for create location
-Route::get('/division/{id}', 'SuperAdminController@division');
-Route::get('/district/{id}', 'SuperAdminController@district');
-Route::get('/thana/{id}', 'SuperAdminController@thana');
+
 
 

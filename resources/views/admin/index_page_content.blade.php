@@ -86,7 +86,7 @@
                             <div class="info">
                                 <?php
                                     echo $count =DB::table('users')
-                                    ->where('status', '0')
+                                    ->where('status', '!=','1')
                                     ->count();
                                 ?>
                             </div>

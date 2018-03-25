@@ -79,7 +79,7 @@
                 }
             });
 
-            $('#scl_form').on('submit', function (e) {
+            $('#scl_form, #tcr_form').on('submit', function (e) {
                 e.preventDefault();
                 data = $(this).serialize();
                 url = $(this).attr('action');
@@ -93,6 +93,7 @@
                         if ($.isEmptyObject(data.errors)) {
                             console.log(data.success);
                             $('#scl_form')[0].reset();
+                            $('#tcr_form')[0].reset();
                             $('.text-danger').remove();
 //                            $('.control-group').removeClass('has-error').removeClass('has-success');
                             $('.print-success-msg').html(data.success);

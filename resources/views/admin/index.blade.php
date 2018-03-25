@@ -344,6 +344,17 @@
                   </ul>
               </li>
               <li class="sub-menu">
+                  <a href="javascript:;" class="">
+                      <i class="icon-user"></i>
+                      <span>Users Manage</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ url('/new_users') }}">New Users Requests</a></li>
+                      <li><a class="" href="{{ url('/active_users') }}">Active Users Lists</a></li>
+                  </ul>
+              </li>
+              <li class="sub-menu">
                   <a href="{{ asset('/classes_list') }}" class="">
                       <i class="icon-th"></i>
                       <span>Classes</span>

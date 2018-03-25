@@ -23,14 +23,14 @@ class CreateUsersTable extends Migration
             $table->string('date_of_birth');
             $table->string('gender');
             $table->string('religion');
-            $table->integer('thana_id');
+            $table->integer('thana_id')->unsigned();
             $table->string('address');
             $table->string('slug');
             $table->string('pic');
             $table->string('user_type');
             $table->string('rank')->nullable();
             $table->string('power')->nullable();
-            $table->boolean('status')->default('0');
+            $table->integer('status')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -132,13 +132,13 @@ select.form-control:not([size]):not([multiple]) {
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-                                <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
-
-				<form action="{{ url('/user_registration') }}" method="post" id="scl_form login-form" class="form-horizontal" role="form" style="display: block;">
-                <h2>Student Registration Form</h2>
-                {{ csrf_field() }}
+                                 
                 <div class="print-success-msg alert alert-success  text-center" style="display: none;"></div>
-                <div class="form-group">
+   
+<div id="login-form" style="display: block;">
+				<form action="{{ url('/user_registration') }}" method="post" id="scl_form" class="form-horizontal" role="form">
+                <h2>Student Registration Form</h2>
+                {{ csrf_field() }}                <div class="form-group">
                     <label for="name" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-9">
                         <input type="text" name="name" id="name" placeholder="Full Name" class="form-control" autofocus required="required">
@@ -279,42 +279,83 @@ select.form-control:not([size]):not([multiple]) {
                 </div>
             </form>
 
+</div>
 
 
 
-
-
-			<form action="{{ url('/user_registration_teacher') }}" method="post" id="register-form scl_form" class="form-horizontal" role="form" style="display: none;">
+<div id="register-form"  style="display: none;">
+			<form action="{{ url('/user_registration_teacher') }}" method="post" id="tcr_form" class="form-horizontal" role="form">
+                {{ csrf_field() }}
                 <h2>Teacher Registration Form</h2>
                 <div class="form-group">
-                    <label for="firstName" class="col-sm-3 control-label">Full Name</label>
+                    <label for="name_tcr" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-9">
-                        <input type="text" id="firstName" placeholder="Full Name" class="form-control" autofocus>
-                        <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span>
+                        <input type="text" name="name_tcr" id="name_tcr" placeholder="Full Name" class="form-control" autofocus required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <label for="email_tcr" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="email" id="email" placeholder="Email" class="form-control">
+                        <input type="email" name="email_tcr" id="email_tcr" placeholder="Email" class="form-control" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">Password</label>
+                    <label for="phone_tcr" class="col-sm-3 control-label">Phone</label>
                     <div class="col-sm-9">
-                        <input type="password" id="password" placeholder="Password" class="form-control">
+                        <input type="phone" name="phone_tcr" id="phone_tcr" placeholder="Phone" class="form-control" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                    <label for="scl_code_tcr" class="col-sm-3 control-label">School code</label>
                     <div class="col-sm-9">
-                        <input type="date" id="birthDate" class="form-control">
+                        <input type="scl_code" name="scl_code_tcr" id="scl_code_tcr" placeholder="School code" class="form-control" required="required">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="country" class="col-sm-3 control-label">Religion</label>
+                    <label for="rank_tcr" class="col-sm-3 control-label">Rank</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="religion" id="religion" >
+                        <input type="rank" name="rank_tcr" id="rank_tcr" placeholder="rank" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password_tcr" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="password_tcr" id="password_tcr" placeholder="Password" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date_of_birth_tcr" class="col-sm-3 control-label">Date of Birth</label>
+                    <div class="col-sm-9">
+                        <input type="date" name="date_of_birth_tcr" id="date_of_birth_tcr" class="form-control" required="required">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Gender</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender_tcr" id="gender_tcr" value="female">Male
+                                </label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender_tcr" id="gender_tcr" value="male">Female
+                                </label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender_tcr" id="gender_tcr" value="Unknown" required="required">Unknown
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <label for="religion_tcr" class="col-sm-3 control-label">Religion</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="religion_tcr" id="religion_tcr" required="required">
                             <option value="Muslim">Muslim</option>
                             <option value="Hindu">Hindu</option>
                             <option value="Christan">Christan</option>
@@ -329,7 +370,7 @@ select.form-control:not([size]):not([multiple]) {
                         <?php
                         $countries = DB::table('country')->get();
                         ?>
-                        <select class="form-control" name="country_id" id="country_id" onchange="ajaxGET('create_division_id','{{URL::to('/division/')}}/'+this.value)">
+                        <select class="form-control" name="country_id" id="country_id" onchange="ajaxGET('create_division_id_teacher','{{URL::to('/division/')}}/'+this.value)">
                             <option value="">Select Country</option>
                             @foreach ($countries as $country)
                             @if ($country->country_name == 'Bangladesh')
@@ -346,7 +387,7 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="country" class="col-sm-3 control-label">Division</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="create_division_id" id="create_division_id" onchange="ajaxGET('create_dist_id','{{URL::to('/district/')}}/'+this.value)">
+                        <select class="form-control" name="create_division_id_teacher" id="create_division_id_teacher" onchange="ajaxGET('create_dist_id_teacher','{{URL::to('/district/')}}/'+this.value)">
                             <option value="">Select Country First</option>
                         </select>
                     </div>
@@ -355,7 +396,7 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="country" class="col-sm-3 control-label">District</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="create_dist_id" id="create_dist_id" onchange="ajaxGET('create_thana_id','{{URL::to('/thana/')}}/'+this.value)">
+                        <select class="form-control" name="create_dist_id_teacher" id="create_dist_id_teacher" onchange="ajaxGET('create_thana_id_teacher','{{URL::to('/thana/')}}/'+this.value)">
                             <option value="">Select Division First</option>
                         </select>
                     </div>
@@ -364,56 +405,19 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="country" class="col-sm-3 control-label">Thana</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="create_thana_id" id="create_thana_id">
+                        <select class="form-control" name="create_thana_id_teacher" id="create_thana_id_teacher">
                             <option value="">Select District First</option>
                         </select>
                     </div>
                 </div> <!-- /.form-group -->
 
                 <div class="form-group">
-                    <label for="scl_adress" class="col-sm-3 control-label">School's Address</label>
+                    <label for="address_tcr" class="col-sm-3 control-label">School's Address</label>
                     <div class="col-sm-9">
-                        <input type="text" name="scl_address" id="scl_adress" placeholder="School's Location Address" class="form-control" required="required">
+                        <input type="text" name="address_tcr" id="address_tcr" placeholder="School's Location Address" class="form-control" required="required">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Gender</label>
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    <input type="radio" id="femaleRadio" value="Female">Female
-                                </label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    <input type="radio" id="maleRadio" value="Male">Male
-                                </label>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="radio-inline">
-                                    <input type="radio" id="uncknownRadio" value="Unknown">Unknown
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Meal Preference</label>
-                    <div class="col-sm-9">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="calorieCheckbox" value="Low calorie">Low calorie
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="saltCheckbox" value="Low salt">Low salt
-                            </label>
-                        </div>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
+                <!--<div class="form-group">
                     <div class="col-sm-9 col-sm-offset-3">
                         <div class="checkbox">
                             <label>
@@ -421,13 +425,15 @@ select.form-control:not([size]):not([multiple]) {
                             </label>
                         </div>
                     </div>
-                </div> <!-- /.form-group -->
+                </div>  /.form-group -->
                 <div class="form-group">
                     <div class="col-sm-9 col-sm-offset-3">
                         <button type="submit" style="font-size: 14px;" class="btn btn-primary btn-block">Register</button>
                     </div>
                 </div>
             </form>
+</div>
+
 							</div>
 						</div>
 					</div>
@@ -453,13 +459,13 @@ select.form-control:not([size]):not([multiple]) {
                 $('#' + div).append(xmlhttp.responseText);
 //                document.getElementById(div).innerHTML = xmlhttp.responseText;
             } else {
-                if (div == 'create_division_id') {
+                if (div == 'create_division_id_teacher') {
                     document.getElementById(div).innerHTML = '<option value="">Select Country First</option>';
                     $('#' + div).css('color', 'red');
-                } else if (div == 'create_dist_id') {
+                } else if (div == 'create_dist_id_teacher') {
                     document.getElementById(div).innerHTML = '<option value="">Select Division/State First</option>';
                     $('#' + div).css('color', 'red');
-                } else if (div == 'create_than_id') {
+                } else if (div == 'create_thana_id_teacher') {
                     document.getElementById(div).innerHTML = '<option value="">Select District First</option>';
                     $('#' + div).css('color', 'red');
                 }
