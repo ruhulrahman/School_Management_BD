@@ -415,6 +415,75 @@ class SuperAdminController extends Controller {
         }
     }
 
+    public function features_add_page()
+    {
+        $features = DB::table('features')->get();
+        $add_features = view('admin.add_features')->with('features', $features);
+        return view('admin.index')->with('page_content', $add_features);
+    }
+
+    public function features_create(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                    'feature' => 'unique:features,feature',
+                        ], [
+                    'feature.unique' => 'This feature already added.',
+        ]);
+
+        if ($validator->passes()):
+            $feature = $request->feature;
+            
+            DB::table('features')->insert(['feature' => $feature]);
+            
+            return response()->json(['success' => '!!! Feature successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function feature_edit($id)
+    {
+        $features = DB::table('features')->where('id', $id)->get();
+        $add_features = view('admin.feature_edit')->with('features', $features);
+        return view('admin.index')->with('page_content', $add_features);
+    }
+
+    public function feature_udpate()
+    {
+
+        $validator = Validator::make($request->all(), [
+                    'feature' => 'unique:features,feature',
+                        ], [
+                    'feature.unique' => 'This feature no change anything.',
+        ]);
+
+        if ($validator->passes()):
+            $feature = $request->feature;
+            $id = $request->id;
+            
+            DB::table('features')
+                ->where('id', $id)
+                ->update(['feature' => $feature]);
+            
+            return response()->json(['success' => '!!! Feature successfully updated. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function feature_delete($id)
+    {
+        $delete = DB::table('features')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'Feature Deleted!!!');
+            return Redirect::to('/features_add_page');
+        }else{
+            Session::put('error', 'Feature Not Deleted!!!');
+        }
+    }
+
 
     public function logoutSuper() {
         Session::put('SuperAdminName', null);

@@ -23,7 +23,7 @@
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Dashboard  {{ date('Y-m-d', strtotime("+30 days")) }}
+                     Dashboard  ||| <span style="color:red">Date: {{ date('d-m-Y') }}</span>
                    </h3>
                    <ul class="breadcrumb">
                        <li>

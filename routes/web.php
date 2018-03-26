@@ -49,6 +49,9 @@ Route::middleware('superadmin')->group(function(){
 	Route::get('/active_users', 'SuperAdminController@active_users');
 	Route::get('/user_deactive/{id}', 'SuperAdminController@user_deactive');
 	Route::get('/user_delete/{id}', 'SuperAdminController@user_delete');
+	Route::get('/features_add_page', 'SuperAdminController@features_add_page');
+	Route::get('/feature_delete/{id}', 'SuperAdminController@feature_delete');
+	Route::get('/feature_edit/{id}', 'SuperAdminController@feature_edit');
 
 	//for create location
 	Route::get('/division/{id}', 'SuperAdminController@division');
@@ -62,6 +65,8 @@ Route::middleware('superadmin')->group(function(){
 	Route::post('/thana-create', 'SuperAdminController@thana_create');
 	Route::post('/class-create', 'SuperAdminController@class_create');
 	Route::post('/class-update', 'SuperAdminController@class_update');
+	Route::post('/features-create', 'SuperAdminController@features_create');
+	Route::post('/feature_update', 'SuperAdminController@feature_update');
 
 	Route::post('/select-ajax', ['as'=>'select-ajax','uses'=>'SuperAdminController@selectAjax']);
 

@@ -381,6 +381,17 @@
                       <li><a class="" href="{{ asset('/teachers') }}">View School Teachers</a></li>
                   </ul>
               </li>
+
+              <li class="sub-menu">
+                  <a href="javascript:;" class="">
+                      <i class="icon-briefcase"></i>
+                      <span>Features</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ asset('/features_add_page') }}">Add Features</a></li>
+                  </ul>
+              </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-book"></i>
