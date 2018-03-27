@@ -11,55 +11,56 @@ use Session;
 
 session_start();
 
-class SuperAdminController extends Controller {
+class AdminController extends Controller
+{
 
     public function __construct() {
-        $superAdminId = Session::get('superAdminId');
+        $AdminId = Session::get('AdminId');
     }
 
     public function index() {
-        $superAdminId = Session::get('superAdminId');
-        if ($superAdminId != Null) {
-            return Redirect::to('/super-dashboard/')->send();
+        $AdminId = Session::get('AdminId');
+        if ($AdminId != Null) {
+            return Redirect::to('/admin-dashboard/')->send();
         }
-        return view('super.login');
+        return view('admin.login');
     }
 
-    public function super_dashboard() {
-        $superAdminId = Session::get('superAdminId');
-        if ($superAdminId == Null) {
-            return Redirect::to('/super/')->send();
+    public function admin_dashboard() {
+        $AdminId = Session::get('AdminId');
+        if ($AdminId == Null) {
+            return Redirect::to('/admin/')->send();
         }
-        $superAdmin = DB::table('super_admin')->get();
+        $adminAdmin = DB::table('schools_reg')->get();
         //$school_reg = DB::table('school_reg')->count();
 
 
-        $index_content = view('super.index_page_content');
-        return view('super.index')->with('page_content', $index_content);
+        $index_content = view('admin.index_page_content');
+        return view('admin.index')->with('page_content', $index_content);
     }
 
-    public function superAdminLogin(Request $request) {
+    public function AdminLogin(Request $request) {
         $username = $request->username;
         $password = md5($request->password);
 
-        $superAdminQuery = DB::table('super_admin')
+        $adminQuery = DB::table('schools_reg')
                 ->where('username', $username)
                 ->where('password', $password)
                 ->first();
-        if ($superAdminQuery) {
-            Session::put('SuperAdminName', $superAdminQuery->name);
-            Session::put('superAdminId', $superAdminQuery->id);
+        if ($adminQuery) {
+            Session::put('AdminName', $adminQuery->scl_name);
+            Session::put('AdminId', $adminQuery->id);
 
-            return Redirect::to('/super-dashboard/');
+            return Redirect::to('/admin-dashboard/');
         } else {
             Session::put('exception', 'User email and password not match!!');
-            return Redirect::to('/super/');
+            return Redirect::to('/admin/');
         }
     }
 
     public function location() {
-        $index_content = view('super.location');
-        return view('super.index')->with('page_content', $index_content);
+        $index_content = view('admin.location');
+        return view('admin.index')->with('page_content', $index_content);
     }
 
     public function division($id) {
@@ -194,10 +195,10 @@ class SuperAdminController extends Controller {
         $days = DB::table('days')                    
                     ->orderBy('id', 'asc')
                     ->get();
-        $index_content = view('super.class_routine')
+        $index_content = view('admin.class_routine')
                 ->with('Days', $days);
 
-        return view('super.index')
+        return view('admin.index')
                         ->with('page_content', $index_content);
     }
 
@@ -209,10 +210,10 @@ class SuperAdminController extends Controller {
                     ->orderBy('schools_reg.id', 'desc')
                     ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
                     ->get();
-        $index_content = view('super.scl_request')
+        $index_content = view('admin.scl_request')
                 ->with('scl_reqs', $scl_reqs);
 
-        return view('super.index')
+        return view('admin.index')
                         ->with('page_content', $index_content);
     }
 
@@ -224,10 +225,10 @@ class SuperAdminController extends Controller {
                     ->orderBy('schools_reg.id', 'desc')
                     ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
                     ->get();
-        $index_content = view('super.scl_list')
+        $index_content = view('admin.scl_list')
                 ->with('scl_reqs', $scl_reqs);
 
-        return view('super.index')
+        return view('admin.index')
                         ->with('page_content', $index_content);
     }
 
@@ -274,13 +275,13 @@ class SuperAdminController extends Controller {
 
 
     public function classes_list(){
-        $superAdminId = Session::get('superAdminId');
-        if ($superAdminId == Null) {
-            return Redirect::to('/super/')->send();
+        $AdminId = Session::get('AdminId');
+        if ($AdminId == Null) {
+            return Redirect::to('/admin/')->send();
         }else{
             $classes = DB::table('class')->get();
-            $classes_list = view('super.classes_list')->with('classes', $classes);
-            return view('super.index')
+            $classes_list = view('admin.classes_list')->with('classes', $classes);
+            return view('admin.index')
                 ->with('page_content', $classes_list);
         }
     }
@@ -322,10 +323,10 @@ class SuperAdminController extends Controller {
                     ->where('id', $id)
                     ->get();
         $classes = DB::table('class')->get();
-        $classes_list = view('super.class_edit')
+        $classes_list = view('admin.class_edit')
                     ->with('class', $class)
                     ->with('classes', $classes);
-        return view('super.index')
+        return view('admin.index')
             ->with('page_content', $classes_list);
     }
 
@@ -362,8 +363,8 @@ class SuperAdminController extends Controller {
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
 
-        $new_users_page = view('super.new_users')->with('new_users', $new_users);
-        return view('super.index')->with('page_content', $new_users_page);
+        $new_users_page = view('admin.new_users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
     }
     public function active_users()
     {
@@ -375,8 +376,8 @@ class SuperAdminController extends Controller {
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
 
-        $new_users_page = view('super.users')->with('new_users', $new_users);
-        return view('super.index')->with('page_content', $new_users_page);
+        $new_users_page = view('admin.users')->with('new_users', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
     }
 
     public function user_active($id){
@@ -418,8 +419,8 @@ class SuperAdminController extends Controller {
     public function features_add_page()
     {
         $features = DB::table('features')->get();
-        $add_features = view('super.add_features')->with('features', $features);
-        return view('super.index')->with('page_content', $add_features);
+        $add_features = view('admin.add_features')->with('features', $features);
+        return view('admin.index')->with('page_content', $add_features);
     }
 
     public function features_create(Request $request)
@@ -447,10 +448,10 @@ class SuperAdminController extends Controller {
                     ->where('id', $id)
                     ->get();
         $features = DB::table('features')->get();
-        $feature_edit = view('super.feature_edit')
+        $feature_edit = view('admin.feature_edit')
                     ->with('feature', $feature)
                     ->with('features', $features);
-        return view('super.index')
+        return view('admin.index')
             ->with('page_content', $feature_edit);
     }
 
@@ -491,19 +492,19 @@ class SuperAdminController extends Controller {
     }
 
 
-    public function logoutSuper() {
-        Session::put('SuperAdminName', null);
-        Session::put('superAdminId', null);
+    public function logoutadmin() {
+        Session::put('AdminName', null);
+        Session::put('AdminId', null);
         Session::put('message', 'You are successfully logout');
-        return Redirect::to('/super/');
+        return Redirect::to('/admin');
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -513,7 +514,8 @@ class SuperAdminController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
@@ -523,7 +525,8 @@ class SuperAdminController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -533,7 +536,8 @@ class SuperAdminController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
@@ -544,7 +548,8 @@ class SuperAdminController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
@@ -554,8 +559,8 @@ class SuperAdminController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
-
 }

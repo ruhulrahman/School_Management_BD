@@ -49,10 +49,10 @@ class SchoolController extends Controller
     }
     public function teachers(){
         $days = DB::table('days')->get();
-        $index_content = view('admin.teachers')
+        $index_content = view('super.teachers')
         ->with('Days', $days);
         
-        return view('admin.index')
+        return view('super.index')
         ->with('page_content', $index_content);
     }
 

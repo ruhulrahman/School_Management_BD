@@ -25,6 +25,13 @@ Route::get('/logout-super', 'SuperAdminController@logoutSuper');
 
 
 
+//Admin Controller==========================================================
+Route::get('/admin/', 'SuperAdminController@index');
+Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
+Route::get('/logout-super', 'SuperAdminController@logoutSuper');
+
+
+
 
 
 Route::post('/super-admin-login/', 'SuperAdminController@superAdminLogin');
