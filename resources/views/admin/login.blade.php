@@ -9,12 +9,12 @@
    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
    <meta content="" name="description" />
    <meta content="" name="author" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-default.css') }}" rel="stylesheet" id="style_color" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-responsive.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-default.css') }}" rel="stylesheet" id="style_color" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -47,7 +47,7 @@
         </div>
 
 
-        <form action="/super-admin-login/" method="post">
+        <form action="{{ url('/super-admin-login/') }}" method="post">
             {{ csrf_field() }}
 
         <div class="metro double-size green">

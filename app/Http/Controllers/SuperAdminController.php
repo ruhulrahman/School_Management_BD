@@ -443,12 +443,18 @@ class SuperAdminController extends Controller {
 
     public function feature_edit($id)
     {
-        $features = DB::table('features')->where('id', $id)->get();
-        $add_features = view('admin.feature_edit')->with('features', $features);
-        return view('admin.index')->with('page_content', $add_features);
+        $feature = DB::table('features')
+                    ->where('id', $id)
+                    ->get();
+        $features = DB::table('features')->get();
+        $feature_edit = view('admin.feature_edit')
+                    ->with('feature', $feature)
+                    ->with('features', $features);
+        return view('admin.index')
+            ->with('page_content', $feature_edit);
     }
 
-    public function feature_udpate()
+    public function feature_update(Request $request)
     {
 
         $validator = Validator::make($request->all(), [

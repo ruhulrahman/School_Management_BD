@@ -16,10 +16,10 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 		
-		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/home_style.css') }}">
+		<link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
+		<link rel="stylesheet" href="{{ asset('public/css/home_style.css') }}">
 
-   <script src="{{ asset('ajax/ajax.js') }}"></script>
+   <script src="{{ asset('public/ajax/ajax.js') }}"></script>
 
 
 
@@ -59,8 +59,8 @@
 
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('public/js/main.js') }}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function () {                 

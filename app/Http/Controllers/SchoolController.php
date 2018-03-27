@@ -23,7 +23,8 @@ class SchoolController extends Controller
     }
     public function features()
     {
-        $home_content = view('home_content');
+        $features = DB::table('features')->get();
+        $home_content = view('home_content')->with('features', $features);
         return view('index')->with('content', $home_content);
     }
 

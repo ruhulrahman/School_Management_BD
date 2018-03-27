@@ -12,20 +12,20 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-   <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap-fileupload.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-default.css') }}" rel="stylesheet" id="style_color" />
-   <link href="{{ asset('assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap-fileupload.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-responsive.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-default.css') }}" rel="stylesheet" id="style_color" />
+   <link href="{{ asset('public/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
 
-    <link href="{{ asset('assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/uniform/css/uniform.default.css') }}" />
+    <link href="{{ asset('public/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/uniform/css/uniform.default.css') }}" />
 
-   <script src="{{ asset('ajax/ajax.js') }}"></script>
+   <script src="{{ asset('public/ajax/ajax.js') }}"></script>
 
  
    
@@ -142,7 +142,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jonathan Smith</span>
 									<span class="time">Just now</span>
@@ -154,7 +154,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jhon Doe</span>
 									<span class="time">10 mins</span>
@@ -166,7 +166,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jason Stathum</span>
 									<span class="time">3 hrs</span>
@@ -178,7 +178,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jondi Rose</span>
 									<span class="time">Just now</span>
@@ -268,7 +268,7 @@
                        <!-- BEGIN USER LOGIN DROPDOWN -->
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                               <img src="{{ asset('img/avatar1_small.jpg') }}" alt="">
+                               <img src="{{ asset('public/img/avatar1_small.jpg') }}" alt="">
                                <?php
                                   $SuperAdminName = Session::get('SuperAdminName');
 
@@ -528,45 +528,45 @@
 
    <!-- BEGIN JAVASCRIPTS -->
    <!-- Load javascripts at bottom, this will reduce page load time -->
-   <script src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
-   <script src="{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-   <script type="text/javascript" src="{{ asset('assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
-   <script type="text/javascript" src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-   <script src="{{ asset('assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
-   <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery-1.8.3.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+   <script src="{{ asset('public/assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap/public/js/bootstrap.min.js') }}"></script>
 
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
+   <script src="public/js/excanvas.js"></script>
+   <script src="public/js/respond.js"></script>
    <![endif]-->
 
-   <script src="{{ asset('assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}" type="text/javascript"></script>
-   <script src="{{ asset('js/jquery.sparkline.js') }}" type="text/javascript"></script>
-   <script src="{{ asset('assets/chart-master/Chart.js') }}"></script>
+   <script src="{{ asset('public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('public/js/jquery.sparkline.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('public/assets/chart-master/Chart.js') }}"></script>
 
    <!--common script for all pages-->
-   <script src="{{ asset('js/common-scripts.js') }}"></script>
+   <script src="{{ asset('public/js/common-scripts.js') }}"></script>
 
    <!--script for this page only-->
 
-   <script src="{{ asset('js/easy-pie-chart.js') }}"></script>
-   <script src="{{ asset('js/sparkline-chart.js') }}"></script>
-   <script src="{{ asset('js/home-page-calender.js') }}"></script>
-   <script src="{{ asset('js/chartjs.js') }}"></script>
+   <script src="{{ asset('public/js/easy-pie-chart.js') }}"></script>
+   <script src="{{ asset('public/js/sparkline-chart.js') }}"></script>
+   <script src="{{ asset('public/js/home-page-calender.js') }}"></script>
+   <script src="{{ asset('public/js/chartjs.js') }}"></script>
 
 
-   <script src="{{ asset('assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
-   <script src="{{ asset('js/jquery.blockui.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery.blockui.js') }}"></script>
    <!--script for this page-->
-   <script src="{{ asset('js/form-wizard.js') }}"></script>
+   <script src="{{ asset('public/js/form-wizard.js') }}"></script>
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
+   <script src="public/js/excanvas.js"></script>
+   <script src="public/js/respond.js"></script>
    <![endif]-->
-   <script type="text/javascript" src="{{ asset('assets/chosen-bootstrap/chosen/chosen.jquery.min.js') }}"></script>
-   <script type="text/javascript" src="{{ asset('assets/uniform/jquery.uniform.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/chosen-bootstrap/chosen/chosen.jquery.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/uniform/jquery.uniform.min.js') }}"></script>
 
    <!-- END JAVASCRIPTS -->
    <script>

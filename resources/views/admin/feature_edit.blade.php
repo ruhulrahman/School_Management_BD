@@ -1,6 +1,6 @@
 @extends('index')
 @section('page_content')
-@section('title', 'Add Features')
+@section('title', 'Edit Features')
 
             <div class="row-fluid">
                <div class="span12">
@@ -44,6 +44,7 @@
                </div>
             </div>
             <!-- END PAGE HEADER-->
+            <a href="{{ url('/features_add_page') }}" class="btn btn-danger">Add Class</a><hr/>
             <!-- BEGIN PAGE CONTENT-->
             <div class="row-fluid">
                 <div class="span5">
@@ -62,17 +63,17 @@
                             <form action="{{ url('/feature_update') }}" method="post" id="scl_form" class="form-horizontal">
                                 {{ csrf_field() }}
                                 <div class="control-group">
-                                    <label for="feature" class="control-label">Add New Feature</label>
+                                    <label for="feature" class="control-label">Edit Feature</label>
                                     <div class="controls">
-                                      @foreach ($features as $feature)
-                                        <input type="hidden" name="id" value="{{ $feature->id }}">
-                                        <input type="text" name="feature" value="{{ $feature->feature }}" id="feature" placeholder="Enter new feature" class="input-medium" />
+                                      @foreach ($feature as $feat)
+                                        <input type="hidden" name="id" value="{{ $feat->id }}">
+                                        <input type="text" name="feature" value="{{ $feat->feature }}" id="feature" placeholder="Enter new feature" class="input-medium" />
                                       @endforeach
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <div class="controls">
-                                        <input type="submit" class="btn btn-primary" value="Add Feature">
+                                        <input type="submit" class="btn btn-primary" value="Update Feature">
                                     </div>
                                 </div>
                             </form>
