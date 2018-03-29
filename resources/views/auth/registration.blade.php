@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-@section('title', 'Student Registration')
+@section('title', 'Student/Teacher Registration')
 <style>
 	
 .panel-login {
@@ -159,7 +159,19 @@ select.form-control:not([size]):not([multiple]) {
                 <div class="form-group">
                     <label for="scl_code" class="col-sm-3 control-label">School code</label>
                     <div class="col-sm-9">
-                        <input type="scl_code" name="scl_code" id="scl_code" placeholder="School code" class="form-control" required="required">
+                        <input type="text" name="scl_code" id="scl_code" placeholder="School code" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="class_id" class="col-sm-3 control-label">Class Name</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="class_id" id="class_id">
+                            <?php $classes = DB::table('class')->get(); ?>
+                                <option value="">Select Class Name</option>
+                            @foreach ($classes as $cls)
+                                <option value="{{ $cls->id }}">{{ $cls->class_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

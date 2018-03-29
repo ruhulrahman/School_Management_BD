@@ -30,10 +30,6 @@
                            <a href="#">Home</a>
                            <span class="divider">/</span>
                        </li>
-                       <li>
-                           <a href="#">Metro Lab</a>
-                           <span class="divider">/</span>
-                       </li>
                        <li class="active">
                            Dashboard
                        </li>
@@ -64,24 +60,11 @@
                                     ->count();
                                 ?>
                             </div>
-                            <div class="status">Schools Requests</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-red">
-                        <a data-original-title="" href="{{ url('/scl_list') }}">
-                            <i class="icon-bar-chart"></i>
-                            <div class="info">
-                                <?php
-                                    echo $count =DB::table('schools_reg')
-                                    ->where('status', '1')
-                                    ->count();
-                                ?>
-                            </div>
-                            <div class="status">Active Schools</div>
+                            <div class="status">Student/Teacher Requests</div>
                         </a>
                     </div>
                     <div class="metro-nav-block nav-block-orange">
-                        <a data-original-title="" href="{{ url('/active_users') }}">
+                        <a data-original-title="" href="{{ url('/active_stn') }}">
                             <i class="icon-user"></i>
                             <div class="info">
                                 <?php
@@ -90,7 +73,21 @@
                                     ->count();
                                 ?>
                             </div>
-                            <div class="status">Total Active User</div>
+                            <div class="status">Active Student</div>
+                        </a>
+                    </div>
+
+                    <div class="metro-nav-block nav-block-orange">
+                        <a data-original-title="" href="{{ url('/active_tcr') }}">
+                            <i class="icon-user"></i>
+                            <div class="info">
+                                <?php
+                                    echo $count =DB::table('users')
+                                    ->where('status', '1')
+                                    ->count();
+                                ?>
+                            </div>
+                            <div class="status">Active Teacher</div>
                         </a>
                     </div>
                     <div class="metro-nav-block nav-block-orange">
@@ -103,7 +100,7 @@
                                     ->count();
                                 ?>
                             </div>
-                            <div class="status">New User</div>
+                            <div class="status">New Student/Teacher</div>
                         </a>
                     </div>
                     <div class="metro-nav-block nav-block-yellow">

@@ -28,7 +28,11 @@
    <script src="{{ asset('public/ajax/ajax.js') }}"></script>
 
  
-   
+  <style>
+   #header.navbar-inverse .navbar-inner{
+    background: #555 !important;
+   }
+ </style>  
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -533,7 +537,7 @@
    <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
    <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
    <script src="{{ asset('public/assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
-   <script src="{{ asset('public/assets/bootstrap/public/js/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             DistrictTableSeeder::class,
             ThanaTableSeeder::class,
             FeaturesTableSeeder::class,
+            ClassTableSeeder::class,
             ThemeSeeder::class,
 	    ]);
     }

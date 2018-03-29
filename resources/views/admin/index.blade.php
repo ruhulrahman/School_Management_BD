@@ -27,7 +27,6 @@
 
    <script src="{{ asset('public/ajax/ajax.js') }}"></script>
 
- 
    
 </head>
 <!-- END HEAD -->
@@ -269,26 +268,20 @@
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                <img src="{{ asset('public/img/avatar1_small.jpg') }}" alt="">
-                               <?php
-                                  $SuperAdminName = Session::get('SuperAdminName');
-
-                               ?>
                                <span class="username">
                                  <?php
-                                  $SuperAdminName = Session::get('SuperAdminName');
-                                  if($SuperAdminName){
-                                    echo $SuperAdminName;
-                                    
+                                  $AdminName = Session::get('AdminName');
+                                  if($AdminName){
+                                    echo $AdminName;                                    
                                   }
-
-                               ?>
+                                ?> Admin
                                </span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                                <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="{{ URL::to('/logout-super') }}"><i class="icon-key"></i> Log Out</a></li>
+                               <li><a href="{{ URL::to('/logout-admin') }}"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -315,6 +308,12 @@
          <!-- END RESPONSIVE QUICK SEARCH FORM -->
          <!-- BEGIN SIDEBAR MENU -->
           <ul class="sidebar-menu">
+              <li class="sub-menu">
+                  <a class="" href="{{ url('/') }}" target="_blank">
+                      <i class="icon-eye-open"></i>
+                      <span>View Site</span>
+                  </a>
+              </li>
               <li class="sub-menu active">
                   <a class="" href="{{ url('/super/') }}">
                       <i class="icon-dashboard"></i>
@@ -323,42 +322,18 @@
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
-                      <i class="icon-globe"></i>
-                      <span>Location</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ url('/location') }}">Location Create</a></li>
-                      <li><a class="" href="nestable.html">Location List</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-book"></i>
-                      <span>Schools</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ url('/school_reg_req') }}">Registration Requests</a></li>
-                      <li><a class="" href="{{ url('/scl_list') }}">Active Schools List</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
                       <i class="icon-user"></i>
-                      <span>Users Manage</span>
+                      <span>Student Manage</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ url('/new_users') }}">New Users Requests</a></li>
-                      <li><a class="" href="{{ url('/active_users') }}">Active Users Lists</a></li>
+                      <li><a class="" href="{{ url('/new-stn-req') }}/<?php if($AdminName){
+                                    echo $AdminName;                                    
+                                  }?>">New Student Requests</a></li>
+                      <li><a class="" href="{{ url('/view-active-stn') }}/<?php if($AdminName){
+                                    echo $AdminName;                                    
+                                  }?>">Active Student Lists</a></li>
                   </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="{{ asset('/classes_list') }}" class="">
-                      <i class="icon-th"></i>
-                      <span>Classes</span>
-                  </a>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
@@ -368,6 +343,8 @@
                   </a>
                   <ul class="sub">
                       <li><a class="" href="{{ asset('/class-routine') }}">View Class Routine</a></li>
+                      <li><a class="" href="{{ asset('/class-routine-add') }}">Add Class Routine</a></li>
+                      <li><a class="" href="{{ asset('/class-routine-edit') }}">Edit Class Routine</a></li>
                   </ul>
               </li>
 
@@ -390,6 +367,17 @@
                   </a>
                   <ul class="sub">
                       <li><a class="" href="{{ asset('/features_add_page') }}">Add Features</a></li>
+                  </ul>
+              </li>
+
+              <li class="sub-menu">
+                  <a href="javascript:;" class="">
+                      <i class="icon-user"></i>
+                      <span>Admins</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ asset('/admins-view') }}">View Admins</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
@@ -533,7 +521,7 @@
    <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
    <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
    <script src="{{ asset('public/assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
-   <script src="{{ asset('public/assets/bootstrap/public/js/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>

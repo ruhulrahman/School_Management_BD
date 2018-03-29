@@ -24,8 +24,8 @@
         <a class="center" id="logo" href="index.html">
             
         </a>
-        <h1 style="color:#90BB4F; font-weight: 800">Welcome to School Management Application</h1>
-        <h2 style="color:#F5C147">Super Admin Panel</h2>
+        <h1 style="color:#90BB4F; font-weight: 800">School Management Application</h1>
+        <h2 style="color:#F5C147">Welcome to Admin Panel</h2>
         <h2 style="color:red">                       
           <?php
               $message = Session::get('message');
@@ -47,17 +47,17 @@
         </div>
 
 
-        <form action="{{ url('/super-admin-login/') }}" method="post">
+        <form action="{{ url('/admin-login/') }}" method="post">
             {{ csrf_field() }}
 
         <div class="metro double-size green">
             <div class="input-append lock-input">
-                <input name="username" type="text" class="" placeholder="Username" required="required">
+                <input name="scl_email" type="text" class="" placeholder="Enter school email" required="required">
             </div>
         </div>
         <div class="metro double-size yellow">
             <div class="input-append lock-input">
-                <input name="password" type="password" class="" placeholder="Password" required="required">
+                <input name="password" type="password" class="" placeholder="Enter password" required="required">
             </div>
         </div>
         <div class="metro single-size terques login">

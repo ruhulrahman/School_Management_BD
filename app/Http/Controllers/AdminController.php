@@ -16,6 +16,7 @@ class AdminController extends Controller
 
     public function __construct() {
         $AdminId = Session::get('AdminId');
+        $AdminName = Session::get('AdminName');
     }
 
     public function index() {
@@ -40,20 +41,29 @@ class AdminController extends Controller
     }
 
     public function AdminLogin(Request $request) {
-        $username = $request->username;
+        $scl_email = $request->scl_email;
         $password = md5($request->password);
 
-        $adminQuery = DB::table('schools_reg')
-                ->where('username', $username)
-                ->where('password', $password)
-                ->first();
-        if ($adminQuery) {
-            Session::put('AdminName', $adminQuery->scl_name);
-            Session::put('AdminId', $adminQuery->id);
+        $scl_info = DB::table('schools_reg')
+                        ->where('scl_email', $scl_email)
+                        ->first();
+        
+        if(date('Y-m-d') < $scl_info->scl_expire_date){
+            $adminQuery = DB::table('schools_reg')
+                    ->where('scl_email', $scl_email)
+                    ->where('scl_password', $password)
+                    ->first();
+            if ($adminQuery) {
+                Session::put('AdminName', $adminQuery->scl_code);
+                Session::put('AdminId', $adminQuery->id);
 
-            return Redirect::to('/admin-dashboard/');
-        } else {
-            Session::put('exception', 'User email and password not match!!');
+                return Redirect::to('/admin-dashboard/');
+            } else {
+                Session::put('message', 'User email and password not match!!');
+                return Redirect::to('/admin/');
+            }        
+        }else{
+            Session::put('message', 'School expire date over !!!');
             return Redirect::to('/admin/');
         }
     }
@@ -366,7 +376,7 @@ class AdminController extends Controller
         $new_users_page = view('admin.new_users')->with('new_users', $new_users);
         return view('admin.index')->with('page_content', $new_users_page);
     }
-    public function active_users()
+    public function active_student()
     {
         $new_users = DB::table('users')
                     ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
@@ -491,9 +501,182 @@ class AdminController extends Controller
         }
     }
 
+    
+    public function teachers(){
+        $users = DB::table('users')->where('user_type', 'teacher')->get();
+        $index_content = view('admin.teachers')
+        ->with('users', $users);
+        
+        return view('admin.index')
+        ->with('page_content', $index_content);
+    }
 
-    public function logoutadmin() {
-        Session::put('AdminName', null);
+
+    public function make_admin($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => 'admin']);
+        if($update){
+            Session::put('message', 'Teahcer now made as a Admin!!');
+            return Redirect::to('/teachers');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+    public function remove_admin($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => '']);
+        if($update){
+            Session::put('message', 'Admin Remove successfully!!!');
+            return Redirect::to('/teachers');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+    public function admins_view(){
+        $users = DB::table('users')->where('power', 'admin')->get();
+        $index_content = view('admin.admins_view')
+        ->with('users', $users);
+        
+        return view('admin.index')
+        ->with('page_content', $index_content);
+    }
+
+
+    public function make_admin_from_admin($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => 'admin']);
+        if($update){
+            Session::put('message', 'Teahcer now made as a Admin!!');
+            return Redirect::to('/admins-view');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+
+    public function remove_admin_from_admin($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => '']);
+        if($update){
+            Session::put('message', 'Admin Remove successfully!!!');
+            return Redirect::to('/admins-view');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+    public function tcr_block($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => 'block']);
+        if($update){
+            Session::put('message', 'Teahcer now blocked!!');
+            return Redirect::to('/teachers');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+    public function tcr_unblock($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->update(['power' => '']);
+        if($update){
+            Session::put('message', 'Teahcer now unblocked!!');
+            return Redirect::to('/teachers');
+        }else{
+            Session::put('error', 'User Not Updated!!!');
+        }
+    }
+
+    public function tcr_delete($id){
+
+        $update = DB::table('users')
+                ->where('id', $id)
+                ->delete();
+        if($update){
+            Session::put('message', 'Teahcer deleted successfully!!');
+            return Redirect::to('/teachers');
+        }else{
+            Session::put('error', 'User Not deleted!!!');
+        }
+    }
+
+    public function new_student_req($scl_code)
+    {
+        $new_student = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','!=', '1')
+                    ->where('scl_code','!=', $scl_code)
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_student_page = view('admin.new_student_req')->with('new_student_req', $new_student);
+        return view('admin.index')->with('page_content', $new_student_page);
+    }
+    public function view_active_stn($scl_code)
+    {
+        $new_users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->where('scl_code','!=', $scl_code)
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_users_page = view('admin.active_student')->with('active_student', $new_users);
+        return view('admin.index')->with('page_content', $new_users_page);
+    }
+
+
+    
+    public function stn_activation($id)
+    {
+        $AdminName = Session::get('stn-deactivation');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '1']);
+        if($update){
+            Session::put('message', 'Student Activated!!!');
+            return Redirect::to('/new-stn-req/'.$AdminName);
+        }else{
+            Session::put('error', 'Student Not Activated!!!');
+        }
+    }
+
+
+    public function stn_deactivation($id)
+    {
+        $AdminName = Session::get('stn-deactivation');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '0']);
+        if($update){
+            Session::put('message', 'Student Deactivated!!!');
+            return Redirect::to('/stn-deactivation/'.$AdminName);
+        }else{
+            Session::put('error', 'Student Not deactivated!!!');
+        }
+    }
+
+
+    public function logoutAdmin() {
+        Session::put('scl_code', null);
         Session::put('AdminId', null);
         Session::put('message', 'You are successfully logout');
         return Redirect::to('/admin');

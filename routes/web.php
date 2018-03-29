@@ -18,31 +18,47 @@
 Auth::routes();
 
 
+
+//Admin Controller==========================================================
+Route::get('/admin/', 'AdminController@index');
+Route::get('/admin-dashboard/', 'AdminController@admin_dashboard');
+Route::get('/logout-admin', 'AdminController@logoutAdmin');
+
+Route::post('/admin-login/', 'AdminController@AdminLogin');
+
+
+Route::middleware('admin')->group(function(){
+	Route::get('/class-routine', 'AdminController@class_routine');
+	Route::get('/new-stn-req/{id}', 'AdminController@new_student_req');
+	Route::get('/view-active-stn/{id}', 'AdminController@view_active_stn');
+	Route::get('/stn-activation/{id}', 'AdminController@stn_activation');
+	Route::get('/stn-deactivation/{id}', 'AdminController@stn_deactivation');
+	Route::get('/teachers', 'AdminController@teachers');
+	Route::get('/make-admin/{id}', 'AdminController@make_admin');
+	Route::get('/remove-admin/{id}', 'AdminController@remove_admin');
+	Route::get('/tcr-block/{id}', 'AdminController@tcr_block');
+	Route::get('/tcr-unblock/{id}', 'AdminController@tcr_unblock');
+	Route::get('/tcr-delete/{id}', 'AdminController@tcr_delete');
+	Route::get('/admins-view', 'AdminController@admins_view');
+	Route::get('/make-admin-from-admin/{id}', 'AdminController@make_admin_from_admin');
+	Route::get('/remove-admin-from-admin/{id}', 'AdminController@remove_admin_from_admin');
+});
+//===============================================================================
+
+
+
 //Super Admin Controller==========================================================
 Route::get('/super/', 'SuperAdminController@index');
 Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
 Route::get('/logout-super', 'SuperAdminController@logoutSuper');
 
-
-
-//Admin Controller==========================================================
-Route::get('/admin/', 'SuperAdminController@index');
-Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
-Route::get('/logout-super', 'SuperAdminController@logoutSuper');
-
-
-
-
-
 Route::post('/super-admin-login/', 'SuperAdminController@superAdminLogin');
 
-///===============================================================================
 
 
 Route::middleware('superadmin')->group(function(){
 	//Super Admin Controller==========================================================
 	Route::get('/location', 'SuperAdminController@location');
-	Route::get('/class-routine', 'SuperAdminController@class_routine');
 	Route::get('/school_reg_req', 'SuperAdminController@school_reg_req');
 	Route::get('/scl_approve/{id}', 'SuperAdminController@scl_approve');
 	Route::get('/scl_delete/{id}', 'SuperAdminController@scl_delete');
@@ -60,10 +76,7 @@ Route::middleware('superadmin')->group(function(){
 	Route::get('/feature_delete/{id}', 'SuperAdminController@feature_delete');
 	Route::get('/feature_edit/{id}', 'SuperAdminController@feature_edit');
 
-	//for create location
-	Route::get('/division/{id}', 'SuperAdminController@division');
-	Route::get('/district/{id}', 'SuperAdminController@district');
-	Route::get('/thana/{id}', 'SuperAdminController@thana');
+
 
 
 	Route::post('/country-create', 'SuperAdminController@country_create');
@@ -79,14 +92,16 @@ Route::middleware('superadmin')->group(function(){
 
 });
 
-
+	//for create location
+	Route::get('/division/{id}', 'SuperAdminController@division');
+	Route::get('/district/{id}', 'SuperAdminController@district');
+	Route::get('/thana/{id}', 'SuperAdminController@thana');
 
 //School Controller Here =========================================================
 Route::get('/', 'SchoolController@index');
 Route::get('/features', 'SchoolController@features');
 Route::get('/school_reg', 'SchoolController@school_reg');
 Route::get('/registration', 'SchoolController@registration');
-Route::get('/teachers', 'SchoolController@teachers');
 //Route::get('/login', 'SchoolController@login');
 
 Route::post('/scl-registration-submit', 'SchoolController@scl_registration_submit');

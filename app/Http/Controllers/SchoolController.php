@@ -47,14 +47,6 @@ class SchoolController extends Controller
         
         return view('auth.school_reg');
     }
-    public function teachers(){
-        $days = DB::table('days')->get();
-        $index_content = view('super.teachers')
-        ->with('Days', $days);
-        
-        return view('super.index')
-        ->with('page_content', $index_content);
-    }
 
 
 
