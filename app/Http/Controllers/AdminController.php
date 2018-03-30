@@ -519,7 +519,7 @@ class AdminController extends Controller
                 ->update(['power' => 'admin']);
         if($update){
             Session::put('message', 'Teahcer now made as a Admin!!');
-            return Redirect::to('/teachers');
+            return Redirect::to('/view-active-tcr/'.Session::get('AdminName'));
         }else{
             Session::put('error', 'User Not Updated!!!');
         }
@@ -532,7 +532,7 @@ class AdminController extends Controller
                 ->update(['power' => '']);
         if($update){
             Session::put('message', 'Admin Remove successfully!!!');
-            return Redirect::to('/teachers');
+            return Redirect::to('/view-active-tcr/'.Session::get('AdminName'));
         }else{
             Session::put('error', 'User Not Updated!!!');
         }
@@ -620,7 +620,8 @@ class AdminController extends Controller
                     ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
                     ->rightJoin('district', 'district.id', '=', 'thana.district_id')
                     ->where('status','!=', '1')
-                    ->where('scl_code','!=', $scl_code)
+                    ->where('scl_code','=', $scl_code)
+                    ->where('user_type','=', 'student')
                     ->orderBy('users.id', 'desc')
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
@@ -634,7 +635,8 @@ class AdminController extends Controller
                     ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
                     ->rightJoin('district', 'district.id', '=', 'thana.district_id')
                     ->where('status','=', '1')
-                    ->where('scl_code','!=', $scl_code)
+                    ->where('scl_code','=', $scl_code)
+                    ->where('user_type','=', 'student')
                     ->orderBy('users.id', 'desc')
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
@@ -647,7 +649,7 @@ class AdminController extends Controller
     
     public function stn_activation($id)
     {
-        $AdminName = Session::get('stn-deactivation');
+        $AdminName = Session::get('AdminName');
         $update = DB::table('users')
                     ->where('id', $id)
                     ->update(['status' => '1']);
@@ -662,15 +664,119 @@ class AdminController extends Controller
 
     public function stn_deactivation($id)
     {
-        $AdminName = Session::get('stn-deactivation');
+        $AdminName = Session::get('AdminName');
         $update = DB::table('users')
                     ->where('id', $id)
                     ->update(['status' => '0']);
         if($update){
             Session::put('message', 'Student Deactivated!!!');
-            return Redirect::to('/stn-deactivation/'.$AdminName);
+            return Redirect::to('view-active-stn/'.$AdminName);
         }else{
             Session::put('error', 'Student Not deactivated!!!');
+        }
+    }
+
+
+    public function student_delete($id)
+    {
+        $AdminName = Session::get('AdminName');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->delete();
+        if($update){
+            Session::put('message', 'Student Deleted!!!');
+            if(url()->current() == base_path().'/view-active-stn/'.$AdminName){
+                return Redirect::to('view-active-stn/'.$AdminName);
+            }else{
+                return Redirect::to('/new-stn-req/'.$AdminName);
+            }
+        }else{
+            Session::put('error', 'Student Not Deleted!!!');
+        }
+    }
+
+
+    //============Teacher Mananage Start from here=========================================
+    //=====================================================================================
+
+    public function new_tcr_req($scl_code)
+    {
+        $new_tcr = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','!=', '1')
+                    ->where('scl_code','=', $scl_code)
+                    ->where('user_type','=', 'teacher')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $new_tcr_page = view('admin.new_tcr_req')->with('new_tcr_req', $new_tcr);
+        return view('admin.index')->with('page_content', $new_tcr_page);
+    }
+    public function view_active_tcr($scl_code)
+    {
+        $active_tcr = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->where('scl_code','=', $scl_code)
+                    ->where('user_type','=', 'teacher')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+
+        $active_tcr_page = view('admin.active_tcr')->with('active_tcr', $active_tcr);
+        return view('admin.index')->with('page_content', $active_tcr_page);
+    }
+
+
+    
+    public function tcr_activation($id)
+    {
+        $AdminName = Session::get('AdminName');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '1']);
+        if($update){
+            Session::put('message', 'Teacher Activated!!!');
+            return Redirect::to('/new-tcr-req/'.$AdminName);
+        }else{
+            Session::put('error', 'Teacher Not Activated!!!');
+        }
+    }
+
+
+    public function tcr_deactivation($id)
+    {
+        $AdminName = Session::get('AdminName');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->update(['status' => '0']);
+        if($update){
+            Session::put('message', 'Teacher Deactivated!!!');
+            return Redirect::to('view-active-tcr/'.$AdminName);
+        }else{
+            Session::put('error', 'Teacher Not deactivated!!!');
+        }
+    }
+
+
+    public function teacher_delete($id)
+    {
+        $AdminName = Session::get('AdminName');
+        $update = DB::table('users')
+                    ->where('id', $id)
+                    ->delete();
+        if($update){
+            Session::put('message', 'Teacher Deleted!!!');
+            if(url()->current() == base_path().'/view-active-tcr/'.$AdminName){
+                return Redirect::to('view-active-tcr/'.$AdminName);
+            }else{
+                return Redirect::to('/new-stn-req/'.$AdminName);
+            }
+        }else{
+            Session::put('error', 'Teacher Not Deleted!!!');
         }
     }
 

@@ -1,10 +1,13 @@
 @extends('index')
 @section('page_content')
-@section('title', 'New Student Request')
+@section('title', 'Active Student Lists')
+
 <style>
   table tr th{text-align: center !important;}
   table tr td{text-align: center !important;}
 </style>
+
+
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
                <div class="span12">
@@ -52,7 +55,7 @@
              <div class="row-fluid">
                  <div class="span12">
                      <!-- BEGIN EXAMPLE TABLE widget-->
-                     <div class="widget purple">
+                     <div class="widget green">
                          <div class="widget-title">
                              <h4><i class="icon-reorder"></i> @yield('title')</h4>
                             <span class="tools">
@@ -92,6 +95,8 @@
                                          <th>Email</th>
                                          <th>Phone</th>
                                          <th>Address</th>
+                                         <th>Rank</th>
+                                         <th>Power</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -99,8 +104,8 @@
                                       <?php
                                         $i = 1;
                                       ?>
-                                      @if (count($new_student_req) > 0)
-                                        @foreach ($new_student_req as $user)
+                                      @if (count($active_tcr) > 0)
+                                        @foreach ($active_tcr as $user)
                                        <tr class="">
                                            <td>{{ $i++ }}</td>
                                            <td>{{ $user->name }}</td>
@@ -108,13 +113,24 @@
                                            <td>{{ $user->email }}</td>
                                            <td>{{ $user->phone }}</td>
                                            <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
-                                           <td><a class="btn btn-success" href="{{ url('/stn-activation') }}/{{ $user->id }}">Active</a></td>
-                                           <td><a class="btn btn-danger" href="{{ url('/student_delete') }}/{{ $user->id }}">Delete</a></td>
+                                           <td>{{ $user->rank }}</td>
+                                           <td><span class="label label-success">{{ $user->power }}</span></td>
+                                           <td>
+                                          @if ($user->power == 'admin')
+                                            <a class="btn btn-danger" href="{{ url('/remove-admin') }}/{{ $user->id }}">Admin Remove</a>
+                                          @elseif($user->power == 'block')
+                                          <a class="btn btn-danger" href="{{ url('/tcr-unblock') }}/{{ $user->id }}">Unblock</a> ||
+                                          @else
+                                          <a class="btn btn-primary" href="{{ url('/make-admin') }}/{{ $user->id }}">Make Admin</a> || 
+
+                                            <a class="btn btn-danger" href="{{ url('/tcr-deactivation') }}/{{ $user->id }}">Dective</a> ||
+                                          <a class="btn btn-danger" href="{{ url('/tcr-delete') }}/{{ $user->id }}">Delete</a></td>
+                                          @endif
                                        </tr>
                                        @endforeach
-                                      @elseif(count($new_student_req) == 0)
+                                      @elseif(count($active_tcr) == 0)
                                          <tr class="aler alert-danger">
-                                             <td colspan="7" style="text-align: center;">There is no student request now</td>
+                                             <td colspan="7" style="text-align: center;">There is no active student now</td>
                                          </tr>
                                       @endif
                                      </tbody>

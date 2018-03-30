@@ -269,9 +269,9 @@ select.form-control:not([size]):not([multiple]) {
                 </div> <!-- /.form-group -->
 
                 <div class="form-group">
-                    <label for="scl_adress" class="col-sm-3 control-label">School's Address</label>
+                    <label for="scl_adress" class="col-sm-3 control-label">Your Address</label>
                     <div class="col-sm-9">
-                        <input type="text" name="address" id="address" placeholder="School's Location Address" class="form-control" required="required">
+                        <input type="text" name="address" id="address" placeholder="Enter Your Address" class="form-control" required="required">
                     </div>
                 </div>
 
@@ -424,9 +424,9 @@ select.form-control:not([size]):not([multiple]) {
                 </div> <!-- /.form-group -->
 
                 <div class="form-group">
-                    <label for="address_tcr" class="col-sm-3 control-label">School's Address</label>
+                    <label for="address_tcr" class="col-sm-3 control-label">Your Address</label>
                     <div class="col-sm-9">
-                        <input type="text" name="address_tcr" id="address_tcr" placeholder="School's Location Address" class="form-control" required="required">
+                        <input type="text" name="address_tcr" id="address_tcr" placeholder="Enter Your Address" class="form-control" required="required">
                     </div>
                 </div>
                 <!--<div class="form-group">

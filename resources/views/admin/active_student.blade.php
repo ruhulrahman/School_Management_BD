@@ -1,7 +1,10 @@
 @extends('index')
 @section('page_content')
 @section('title', 'Active Student Lists')
-
+<style>
+  table tr th{text-align: center !important;}
+  table tr td{text-align: center !important;}
+</style>
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
                <div class="span12">
@@ -84,11 +87,11 @@
                                      <thead>
                                      <tr style="text-align: center;">
                                          <th>SL.</th>
-                                         <th>School Name</th>
+                                         <th>Name</th>
                                          <th>School Code</th>
-                                         <th>School Email</th>
-                                         <th>School Phone</th>
-                                         <th>School Address</th>
+                                         <th>Email</th>
+                                         <th>Phone</th>
+                                         <th>Address</th>
                                          <th>Action</th>
                                      </tr>
                                      </thead>
@@ -105,13 +108,13 @@
                                            <td>{{ $user->email }}</td>
                                            <td>{{ $user->phone }}</td>
                                            <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
-                                           <td><a class="btn btn-danger" href="{{ url('/stn-deactivation') }}/{{ $user->id }}">Dective</a></td>
-                                           <td><a class="btn btn-danger" href="{{ url('/user_delete') }}/{{ $user->id }}">Delete</a></td>
+                                           <td><a class="btn btn-danger" href="{{ url('/stn-deactivation') }}/{{ $user->id }}">Dective</a> || 
+                                           <a class="btn btn-danger" href="{{ url('/student_delete') }}/{{ $user->id }}">Delete</a></td>
                                        </tr>
                                        @endforeach
                                       @elseif(count($active_student) == 0)
                                          <tr class="aler alert-danger">
-                                             <td colspan="7" style="text-align: center;">There is no active School now</td>
+                                             <td colspan="7" style="text-align: center;">There is no active student now</td>
                                          </tr>
                                       @endif
                                      </tbody>

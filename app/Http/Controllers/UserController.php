@@ -68,6 +68,7 @@ class UserController extends Controller
             $tableInfo['pic'] = $img_path;
             $tableInfo['user_type'] = 'student';
             $tableInfo['status'] = $rand;
+            $tableInfo['created_ad'] = date('Y-m-d H:i:s');
 
             if ($validator2->passes()) {
                 return response()->json(['errors' => array('scl_code' => 'Not match')]);

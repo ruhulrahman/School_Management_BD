@@ -315,7 +315,7 @@
                   </a>
               </li>
               <li class="sub-menu active">
-                  <a class="" href="{{ url('/super/') }}">
+                  <a class="" href="{{ url('/admin/') }}">
                       <i class="icon-dashboard"></i>
                       <span>Dashboard</span>
                   </a>
@@ -327,12 +327,8 @@
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ url('/new-stn-req') }}/<?php if($AdminName){
-                                    echo $AdminName;                                    
-                                  }?>">New Student Requests</a></li>
-                      <li><a class="" href="{{ url('/view-active-stn') }}/<?php if($AdminName){
-                                    echo $AdminName;                                    
-                                  }?>">Active Student Lists</a></li>
+                      <li><a class="" href="{{ url('/new-stn-req') }}/{{ Session::get('AdminName') }}">New Student Requests</a></li>
+                      <li><a class="" href="{{ url('/view-active-stn') }}/{{ Session::get('AdminName') }}">Active Student Lists</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
@@ -351,25 +347,14 @@
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-user"></i>
-                      <span>Teachers</span>
+                      <span>Teachers Manage</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ asset('/teachers') }}">View School Teachers</a></li>
+                      <li><a class="" href="{{ asset('/new-tcr-req') }}/{{ Session::get('AdminName') }}">Teachers Add Request</a></li>
+                      <li><a class="" href="{{ asset('/view-active-tcr') }}/{{ Session::get('AdminName') }}">Active Teachers</a></li>
                   </ul>
               </li>
-
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-briefcase"></i>
-                      <span>Features</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/features_add_page') }}">Add Features</a></li>
-                  </ul>
-              </li>
-
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-user"></i>

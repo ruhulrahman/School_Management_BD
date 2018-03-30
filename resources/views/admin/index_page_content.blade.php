@@ -23,7 +23,7 @@
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Dashboard  ||| <span style="color:red">Date: {{ date('d-m-Y') }}</span>
+                     Dashboard  ||| <span style="color:red">Date: {{ date('Y-m-d H:i:s', strtotime('-30 days')) }} {{ url()->current() }}</span>
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -51,25 +51,27 @@
                 <!--BEGIN METRO STATES-->
                 <div class="metro-nav">
                     <div class="metro-nav-block nav-block-red">
-                        <a data-original-title="" href="{{ url('/school_reg_req') }}">
+                        <a data-original-title="" href="{{ url('/new-stn-req') }}/{{ Session::get('AdminName') }}">
                             <i class="icon-bar-chart"></i>
                             <div class="info">
                                 <?php
-                                    echo $count =DB::table('schools_reg')
-                                    ->where('status', '0')
+                                    echo $count =DB::table('users')
+                                    ->where('status', '!=', '1')
+                                    ->where('scl_code', '=', Session::get('AdminName'))
                                     ->count();
                                 ?>
                             </div>
                             <div class="status">Student/Teacher Requests</div>
                         </a>
                     </div>
-                    <div class="metro-nav-block nav-block-orange">
+                    <div class="metro-nav-block nav-block-green">
                         <a data-original-title="" href="{{ url('/active_stn') }}">
                             <i class="icon-user"></i>
                             <div class="info">
                                 <?php
                                     echo $count =DB::table('users')
                                     ->where('status', '1')
+                                    ->where('scl_code', '=', Session::get('AdminName'))
                                     ->count();
                                 ?>
                             </div>
@@ -77,26 +79,29 @@
                         </a>
                     </div>
 
-                    <div class="metro-nav-block nav-block-orange">
+                    <div class="metro-nav-block nav-block-green">
                         <a data-original-title="" href="{{ url('/active_tcr') }}">
                             <i class="icon-user"></i>
                             <div class="info">
                                 <?php
                                     echo $count =DB::table('users')
                                     ->where('status', '1')
+                                    ->where('scl_code', '=', Session::get('AdminName'))
                                     ->count();
                                 ?>
                             </div>
                             <div class="status">Active Teacher</div>
                         </a>
                     </div>
-                    <div class="metro-nav-block nav-block-orange">
+                    <div class="metro-nav-block nav-block-grey">
                         <a data-original-title="" href="{{ url('/new_users') }}">
                             <i class="icon-user"></i>
                             <div class="info">
                                 <?php
                                     echo $count =DB::table('users')
                                     ->where('status', '!=','1')
+                                    ->where('scl_code', '=', Session::get('AdminName'))
+                                    ->where('created_at', '>', date('Y-m-d H:i:s', strtotime('-30 days')))
                                     ->count();
                                 ?>
                             </div>

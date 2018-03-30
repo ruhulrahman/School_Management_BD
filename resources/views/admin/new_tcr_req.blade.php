@@ -1,6 +1,6 @@
 @extends('index')
 @section('page_content')
-@section('title', 'New Student Request')
+@section('title', 'New Teachers Requests')
 <style>
   table tr th{text-align: center !important;}
   table tr td{text-align: center !important;}
@@ -99,8 +99,8 @@
                                       <?php
                                         $i = 1;
                                       ?>
-                                      @if (count($new_student_req) > 0)
-                                        @foreach ($new_student_req as $user)
+                                      @if (count($new_tcr_req) > 0)
+                                        @foreach ($new_tcr_req as $user)
                                        <tr class="">
                                            <td>{{ $i++ }}</td>
                                            <td>{{ $user->name }}</td>
@@ -108,13 +108,13 @@
                                            <td>{{ $user->email }}</td>
                                            <td>{{ $user->phone }}</td>
                                            <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
-                                           <td><a class="btn btn-success" href="{{ url('/stn-activation') }}/{{ $user->id }}">Active</a></td>
-                                           <td><a class="btn btn-danger" href="{{ url('/student_delete') }}/{{ $user->id }}">Delete</a></td>
+                                           <td><a class="btn btn-success" href="{{ url('/tcr-activation') }}/{{ $user->id }}">Active</a></td>
+                                           <td><a class="btn btn-danger" href="{{ url('/teacher_delete') }}/{{ $user->id }}">Delete</a></td>
                                        </tr>
                                        @endforeach
-                                      @elseif(count($new_student_req) == 0)
+                                      @elseif(count($new_tcr_req) == 0)
                                          <tr class="aler alert-danger">
-                                             <td colspan="7" style="text-align: center;">There is no student request now</td>
+                                             <td colspan="7" style="text-align: center;">There is no teachers request now</td>
                                          </tr>
                                       @endif
                                      </tbody>

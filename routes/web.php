@@ -29,16 +29,23 @@ Route::post('/admin-login/', 'AdminController@AdminLogin');
 
 Route::middleware('admin')->group(function(){
 	Route::get('/class-routine', 'AdminController@class_routine');
+
 	Route::get('/new-stn-req/{id}', 'AdminController@new_student_req');
 	Route::get('/view-active-stn/{id}', 'AdminController@view_active_stn');
 	Route::get('/stn-activation/{id}', 'AdminController@stn_activation');
 	Route::get('/stn-deactivation/{id}', 'AdminController@stn_deactivation');
-	Route::get('/teachers', 'AdminController@teachers');
+	Route::get('/student_delete/{id}', 'AdminController@student_delete');
+
+	Route::get('/new-tcr-req/{id}', 'AdminController@new_tcr_req');
+	Route::get('/view-active-tcr/{id}', 'AdminController@view_active_tcr');
+	Route::get('/tcr-activation/{id}', 'AdminController@tcr_activation');
+	Route::get('/tcr-deactivation/{id}', 'AdminController@tcr_deactivation');	
+	Route::get('/tcr-delete/{id}', 'AdminController@tcr_delete');
 	Route::get('/make-admin/{id}', 'AdminController@make_admin');
 	Route::get('/remove-admin/{id}', 'AdminController@remove_admin');
 	Route::get('/tcr-block/{id}', 'AdminController@tcr_block');
 	Route::get('/tcr-unblock/{id}', 'AdminController@tcr_unblock');
-	Route::get('/tcr-delete/{id}', 'AdminController@tcr_delete');
+	Route::get('/teachers', 'AdminController@teachers');
 	Route::get('/admins-view', 'AdminController@admins_view');
 	Route::get('/make-admin-from-admin/{id}', 'AdminController@make_admin_from_admin');
 	Route::get('/remove-admin-from-admin/{id}', 'AdminController@remove_admin_from_admin');
