@@ -1,6 +1,9 @@
 @extends('index')
 @section('page_content')
-
+<style>
+  table tr th{text-align: center !important;}
+  table tr td{text-align: center !important;}
+</style>
             <!-- BEGIN PAGE HEADER-->   
             <div class="row-fluid">
                <div class="span12">
@@ -63,22 +66,46 @@
                             </span>
                             </div>
                             <div class="widget-body">
+                              <span style="" class="pull-right label label-success">
+                                <?php $message = Session::get('message'); ?>
+                                @if ($message)
+                                  {{ $message }}
+                                  <?php Session::put('message', null); ?>
+                                @endif
+                                </span>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>SL. No.</th>
                                         <th>Teacher's Name</th>
-                                        <th>Subject Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
                                         <th>Rank</th>
+                                        <th>Current Power</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($Days as $day)
+                                      <?php $i= 1; ?>
+                                    @foreach ($users as $user)
                                     <tr>
-                                        <td>{{ $day->day }}</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>Class Teacher</td>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
+                                        <td>{{ $user->rank }}</td>
+                                        <td>{{ $user->power }}</td>
+                                        <td>
+                                          @if ($user->power == 'block')
+                                          <a class="btn btn-danger" href="{{ url('/tcr-unblock') }}/{{ $user->id }}">Unblock</a> ||
+                                          @else
+                                          <a class="btn btn-danger" href="{{ url('/tcr-block') }}/{{ $user->id }}">Block</a> || 
+                                          @endif
+
+                                          <a class="btn btn-danger" href="{{ url('/tcr-delete') }}/{{ $user->id }}">Delete</a>
+                                           </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -90,3 +117,7 @@
                 </div>
 
 @endsection
+
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; color: red;">Tifin Time: 1:30PM to 2:15PM</td>
+                                    </tr>

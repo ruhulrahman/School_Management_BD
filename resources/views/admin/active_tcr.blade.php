@@ -114,10 +114,16 @@
                                            <td>{{ $user->phone }}</td>
                                            <td>{{ $user->district_name.', '.$user->thana_name.', '.$user->address }}</td>
                                            <td>{{ $user->rank }}</td>
-                                           <td><span class="label label-success">{{ $user->power }}</span></td>
+                                           <td>
+                                            @if ($user->power == 'admin')
+                                              <span class="label label-success">{{ $user->power }}</span>
+                                            @else
+                                              <span class="label label-primary">{{ $user->power }}</span>
+                                            @endif
+                                            </td>
                                            <td>
                                           @if ($user->power == 'admin')
-                                            <a class="btn btn-danger" href="{{ url('/remove-admin') }}/{{ $user->id }}">Admin Remove</a>
+                                            <a class="btn btn-danger" href="{{ url('/remove-admin') }}/{{ $user->id }}">Remove Admin</a>
                                           @elseif($user->power == 'block')
                                           <a class="btn btn-danger" href="{{ url('/tcr-unblock') }}/{{ $user->id }}">Unblock</a> ||
                                           @else

@@ -29,6 +29,7 @@ Route::post('/admin-login/', 'AdminController@AdminLogin');
 
 Route::middleware('admin')->group(function(){
 	Route::get('/class-routine', 'AdminController@class_routine');
+	Route::get('/class-routine-add', 'AdminController@class_routine_add');
 
 	Route::get('/new-stn-req/{id}', 'AdminController@new_student_req');
 	Route::get('/view-active-stn/{id}', 'AdminController@view_active_stn');
@@ -45,10 +46,20 @@ Route::middleware('admin')->group(function(){
 	Route::get('/remove-admin/{id}', 'AdminController@remove_admin');
 	Route::get('/tcr-block/{id}', 'AdminController@tcr_block');
 	Route::get('/tcr-unblock/{id}', 'AdminController@tcr_unblock');
-	Route::get('/teachers', 'AdminController@teachers');
+
 	Route::get('/admins-view', 'AdminController@admins_view');
 	Route::get('/make-admin-from-admin/{id}', 'AdminController@make_admin_from_admin');
 	Route::get('/remove-admin-from-admin/{id}', 'AdminController@remove_admin_from_admin');
+
+	Route::get('/subject-add/{id}', 'AdminController@subject_add');
+	Route::get('/subject-edit/{id}', 'AdminController@subject_edit');
+
+
+
+	//Post Method below---------------------
+	Route::post('/create-class-routine', 'AdminController@create_class_routine');	
+	Route::post('/subject-create', 'AdminController@subject_create');
+	Route::post('/subject-update', 'AdminController@subject_update');
 });
 //===============================================================================
 
@@ -83,7 +94,7 @@ Route::middleware('superadmin')->group(function(){
 	Route::get('/feature_delete/{id}', 'SuperAdminController@feature_delete');
 	Route::get('/feature_edit/{id}', 'SuperAdminController@feature_edit');
 
-
+	Route::get('/teachers', 'SuperAdminController@teachers');
 
 
 	Route::post('/country-create', 'SuperAdminController@country_create');

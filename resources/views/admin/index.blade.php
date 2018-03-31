@@ -333,6 +333,27 @@
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
+                      <i class="icon-user"></i>
+                      <span>Teachers Manage</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ asset('/new-tcr-req') }}/{{ Session::get('AdminName') }}">Teachers Add Request</a></li>
+                      <li><a class="" href="{{ asset('/view-active-tcr') }}/{{ Session::get('AdminName') }}">Active Teachers</a></li>
+                  </ul>
+              </li>
+              <li class="sub-menu">
+                  <a href="javascript:;" class="">
+                      <i class="icon-book"></i>
+                      <span>Subjects Manage</span>
+                      <span class="arrow"></span>
+                  </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ asset('/subject-add') }}/{{ Session::get('AdminName') }}">Add New Suject</a></li>
+                  </ul>
+              </li>
+              <li class="sub-menu">
+                  <a href="javascript:;" class="">
                       <i class="icon-th"></i>
                       <span>Class Routine</span>
                       <span class="arrow"></span>
@@ -344,17 +365,6 @@
                   </ul>
               </li>
 
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-user"></i>
-                      <span>Teachers Manage</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/new-tcr-req') }}/{{ Session::get('AdminName') }}">Teachers Add Request</a></li>
-                      <li><a class="" href="{{ asset('/view-active-tcr') }}/{{ Session::get('AdminName') }}">Active Teachers</a></li>
-                  </ul>
-              </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-user"></i>
@@ -544,7 +554,7 @@
    <!-- END JAVASCRIPTS -->
    <script>
        $(function () {
-           $(" input[type=radio], input[type=checkbox]").uniform();
+           //$(" input[type=radio], input[type=checkbox]").uniform();
        });
    </script> 
    
@@ -622,3 +632,15 @@
 </body>
 <!-- END BODY -->
 </html>
+
+
+
+
+                                        <th>Day</th>
+                                        <th>1st Class</th>
+                                        <th>2nd Class</th>
+                                        <th>3rd Class</th>
+                                        <th>4th Class</th>
+                                        <th>5th Class</th>
+                                        <th>6th Class</th>
+                                        <th>7th Class</th>

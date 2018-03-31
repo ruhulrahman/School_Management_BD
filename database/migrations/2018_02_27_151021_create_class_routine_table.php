@@ -15,12 +15,11 @@ class CreateClassRoutineTable extends Migration
     {
         Schema::create('class_routine', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('school_id');
+            $table->string('scl_code');
             $table->string('class_id');
             $table->string('day_id');
             $table->string('subject_id');
             $table->string('class_time');
-            $table->string('teacher_id');
             $table->timestamps();
         });
     }

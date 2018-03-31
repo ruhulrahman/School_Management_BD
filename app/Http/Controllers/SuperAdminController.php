@@ -490,6 +490,22 @@ class SuperAdminController extends Controller {
         }
     }
 
+    public function teachers(){
+        $users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->where('user_type','=', 'teacher')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+        $index_content = view('super.teachers')
+        ->with('users', $users);
+        
+        return view('super.index')
+        ->with('page_content', $index_content);
+    }
+
 
     public function logoutSuper() {
         Session::put('SuperAdminName', null);

@@ -202,11 +202,14 @@ class AdminController extends Controller
     }
 
     public function class_routine() {
-        $days = DB::table('days')                    
-                    ->orderBy('id', 'asc')
+        $routine = DB::table('class_routine')
+                    ->join('class', 'class_routine.class_id', '=', 'class.id')
+                    ->join('days', 'class_routine.day_id', '=', 'days.id')
+                    ->join('subject', 'class_routine.subject_id', '=', 'subject.id')
+                    ->select('class_routine.*', 'class.class_name', 'subject.subject_name_en', 'days.day')
                     ->get();
         $index_content = view('admin.class_routine')
-                ->with('Days', $days);
+                ->with('routine', $routine);
 
         return view('admin.index')
                         ->with('page_content', $index_content);
@@ -426,90 +429,10 @@ class AdminController extends Controller
         }
     }
 
-    public function features_add_page()
-    {
-        $features = DB::table('features')->get();
-        $add_features = view('admin.add_features')->with('features', $features);
-        return view('admin.index')->with('page_content', $add_features);
-    }
 
-    public function features_create(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-                    'feature' => 'unique:features,feature',
-                        ], [
-                    'feature.unique' => 'This feature already added.',
-        ]);
-
-        if ($validator->passes()):
-            $feature = $request->feature;
-            
-            DB::table('features')->insert(['feature' => $feature]);
-            
-            return response()->json(['success' => '!!! Feature successfully added. !!!']);
-        else:
-            return response()->json(['errors' => $validator->errors()]);
-        endif;
-    }
-
-    public function feature_edit($id)
-    {
-        $feature = DB::table('features')
-                    ->where('id', $id)
-                    ->get();
-        $features = DB::table('features')->get();
-        $feature_edit = view('admin.feature_edit')
-                    ->with('feature', $feature)
-                    ->with('features', $features);
-        return view('admin.index')
-            ->with('page_content', $feature_edit);
-    }
-
-    public function feature_update(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-                    'feature' => 'unique:features,feature',
-                        ], [
-                    'feature.unique' => 'This feature no change anything.',
-        ]);
-
-        if ($validator->passes()):
-            $feature = $request->feature;
-            $id = $request->id;
-            
-            DB::table('features')
-                ->where('id', $id)
-                ->update(['feature' => $feature]);
-            
-            return response()->json(['success' => '!!! Feature successfully updated. !!!']);
-        else:
-            return response()->json(['errors' => $validator->errors()]);
-        endif;
-    }
-
-    public function feature_delete($id)
-    {
-        $delete = DB::table('features')
-                    ->where('id', $id)
-                    ->delete();
-        if($delete){
-            Session::put('message', 'Feature Deleted!!!');
-            return Redirect::to('/features_add_page');
-        }else{
-            Session::put('error', 'Feature Not Deleted!!!');
-        }
-    }
 
     
-    public function teachers(){
-        $users = DB::table('users')->where('user_type', 'teacher')->get();
-        $index_content = view('admin.teachers')
-        ->with('users', $users);
-        
-        return view('admin.index')
-        ->with('page_content', $index_content);
-    }
+
 
 
     public function make_admin($id){
@@ -529,7 +452,7 @@ class AdminController extends Controller
 
         $update = DB::table('users')
                 ->where('id', $id)
-                ->update(['power' => '']);
+                ->update(['power' => 'Old admin']);
         if($update){
             Session::put('message', 'Admin Remove successfully!!!');
             return Redirect::to('/view-active-tcr/'.Session::get('AdminName'));
@@ -780,6 +703,133 @@ class AdminController extends Controller
         }
     }
 
+
+    public function class_routine_add()
+    {
+        $days = DB::table('days')                    
+                    ->orderBy('id', 'asc')
+                    ->get();
+        $index_content = view('admin.add_class_routine')
+                ->with('Days', $days);
+
+        return view('admin.index')
+                        ->with('page_content', $index_content); 
+    }
+
+
+    public function create_class_routine(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                    'class_id' => 'required',
+                    'day_id' => 'required',
+                    'subject_id' => 'required',
+                    'class_time' => 'required',
+                        ], [
+                    'class_id.required' => 'You can\'t leave this empty.',
+                    'day_id.required' => 'You can\'t leave this empty.',
+                    'subject_id.required' => 'You can\'t leave this empty.',
+                    'class_time.required' => 'You can\'t leave this empty.',
+        ]);
+
+        if ($validator->passes()):
+        $data = array();
+        $data['scl_code'] = Session::get('AdminName');
+        $data['class_id'] = $request->class_id;
+        $data['day_id'] = $request->day_id;
+        $data['subject_id'] = $request->subject_id;
+        $data['class_time'] = $request->class_time;
+            
+            DB::table('class_routine')->insert($data);
+            
+            return response()->json(['success' => '!!! Class Routine successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+
+    public function subject_add()
+    {
+        $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get();
+        $add_subjects = view('admin.subject_add')->with('subjects', $subjects);
+        return view('admin.index')->with('page_content', $add_subjects);
+    }
+
+    public function subject_create(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                    'subject_name_en' => 'required|unique:subject,subject_name_en',
+                    'subject_name_bn' => 'required|unique:subject,subject_name_bn',
+                        ], [
+                    'subject_name_en.required' => 'You can\'t leave this empty.',
+                    'subject_name_en.unique' => 'This subject name already added.',
+                    'subject_name_bn.required' => 'You can\'t leave this empty.',
+                    'subject_name_bn.unique' => 'This subject name already added.',
+        ]);
+
+        if ($validator->passes()):
+            $data = array();
+            $data['subject_name_en'] = $request->subject_name_en;
+            $data['subject_name_bn'] = $request->subject_name_bn;
+            
+            DB::table('subject')->insert($data);
+            
+            return response()->json(['success' => '!!! Subject successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function subject_edit($id)
+    {
+        $subject_by_id = DB::table('subject')
+                    ->where('id', $id)
+                    ->get();
+        $subject_all = DB::table('subject')->get();
+        $subject_edit = view('admin.subject_edit')
+                    ->with('subjects', $subject_all)
+                    ->with('subject', $subject_by_id);
+        return view('admin.index')
+            ->with('page_content', $subject_edit);
+    }
+
+    public function subject_update(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+                    'subject_name_en' => 'required',
+                    'subject_name_bn' => 'required',
+                        ], [
+                    'subject_name_en.required' => 'You can\'t leave this empty.',
+                    'subject_name_bn.required' => 'You can\'t leave this empty.',
+        ]);
+
+        if ($validator->passes()):
+            $data = array();
+            $id = $request->id;
+            $data['subject_name_en'] = $request->subject_name_en;
+            $data['subject_name_bn'] = $request->subject_name_bn;
+            
+            DB::table('subject')->where('id', $id)->update($data);
+            
+            return response()->json(['success' => '!!! Subject successfully updated. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function subject_delete($id)
+    {
+        $delete = DB::table('subject')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'Subject Deleted!!!');
+            return Redirect::to('/subject_add_page');
+        }else{
+            Session::put('error', 'Subject Not Deleted!!!');
+        }
+    }
 
     public function logoutAdmin() {
         Session::put('scl_code', null);
