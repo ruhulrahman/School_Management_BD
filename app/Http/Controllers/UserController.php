@@ -29,11 +29,13 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
                     'scl_code' => 'required',
+                    'class_id' => 'required',
                     'email' => 'unique:users,email',
                     'phone' => 'unique:users,phone',
                     'create_thana_id' => 'required',
                         ], [
                     'scl_code.required' => 'You can\'t leave this empty.',
+                    'class_id.required' => 'You can\'t leave this empty.',
                     'email.unique' => 'This email already taken.',
                     'phone.unique' => 'This phone number already taken.',
                     'create_thana_id.required' => 'You can\'t leave this empty.',
@@ -55,6 +57,7 @@ class UserController extends Controller
             $tableInfo['email'] = $request->email;
             $tableInfo['phone'] = $request->phone;
             $tableInfo['scl_code'] = $request->scl_code;
+            $tableInfo['class_id'] = $request->class_id;
             $tableInfo['password'] = md5($request->password);
             $tableInfo['date_of_birth'] = $request->date_of_birth;
             $tableInfo['gender'] = $request->gender;
@@ -65,6 +68,7 @@ class UserController extends Controller
             $tableInfo['pic'] = $img_path;
             $tableInfo['user_type'] = 'student';
             $tableInfo['status'] = $rand;
+            $tableInfo['created_ad'] = date('Y-m-d H:i:s');
 
             if ($validator2->passes()) {
                 return response()->json(['errors' => array('scl_code' => 'Not match')]);

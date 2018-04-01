@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 191)->unique();
             $table->string('phone', 20)->unique();            
             $table->string('scl_code');
+            $table->integer('class_id')->nullable();
             $table->string('password');
             $table->string('date_of_birth');
             $table->string('gender');

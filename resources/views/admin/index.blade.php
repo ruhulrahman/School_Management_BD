@@ -12,22 +12,21 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-   <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/bootstrap/css/bootstrap-fileupload.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet" />
-   <link href="{{ asset('css/style-default.css') }}" rel="stylesheet" id="style_color" />
-   <link href="{{ asset('assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css') }}" rel="stylesheet" />
-   <link href="{{ asset('assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/bootstrap/css/bootstrap-fileupload.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-responsive.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/css/style-default.css') }}" rel="stylesheet" id="style_color" />
+   <link href="{{ asset('public/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css') }}" rel="stylesheet" />
+   <link href="{{ asset('public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
 
-    <link href="{{ asset('assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/uniform/css/uniform.default.css') }}" />
+    <link href="{{ asset('public/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/uniform/css/uniform.default.css') }}" />
 
-   <script src="{{ asset('ajax/ajax.js') }}"></script>
+   <script src="{{ asset('public/ajax/ajax.js') }}"></script>
 
- 
    
 </head>
 <!-- END HEAD -->
@@ -142,7 +141,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jonathan Smith</span>
 									<span class="time">Just now</span>
@@ -154,7 +153,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jhon Doe</span>
 									<span class="time">10 mins</span>
@@ -166,7 +165,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jason Stathum</span>
 									<span class="time">3 hrs</span>
@@ -178,7 +177,7 @@
                                </li>
                                <li>
                                    <a href="#">
-                                       <span class="photo"><img src="{{ asset('img/avatar-mini.png') }}" alt="avatar" /></span>
+                                       <span class="photo"><img src="{{ asset('public/img/avatar-mini.png') }}" alt="avatar" /></span>
 									<span class="subject">
 									<span class="from">Jondi Rose</span>
 									<span class="time">Just now</span>
@@ -268,27 +267,21 @@
                        <!-- BEGIN USER LOGIN DROPDOWN -->
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                               <img src="{{ asset('img/avatar1_small.jpg') }}" alt="">
-                               <?php
-                                  $SuperAdminName = Session::get('SuperAdminName');
-
-                               ?>
+                               <img src="{{ asset('public/img/avatar1_small.jpg') }}" alt="">
                                <span class="username">
                                  <?php
-                                  $SuperAdminName = Session::get('SuperAdminName');
-                                  if($SuperAdminName){
-                                    echo $SuperAdminName;
-                                    
+                                  $AdminName = Session::get('AdminName');
+                                  if($AdminName){
+                                    echo $AdminName;                                    
                                   }
-
-                               ?>
+                                ?> Admin
                                </span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                                <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="{{ URL::to('/logout-super') }}"><i class="icon-key"></i> Log Out</a></li>
+                               <li><a href="{{ URL::to('/logout-admin') }}"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -315,50 +308,49 @@
          <!-- END RESPONSIVE QUICK SEARCH FORM -->
          <!-- BEGIN SIDEBAR MENU -->
           <ul class="sidebar-menu">
+              <li class="sub-menu">
+                  <a class="" href="{{ url('/') }}" target="_blank">
+                      <i class="icon-eye-open"></i>
+                      <span>View Site</span>
+                  </a>
+              </li>
               <li class="sub-menu active">
-                  <a class="" href="{{ url('/super/') }}">
+                  <a class="" href="{{ url('/admin/') }}">
                       <i class="icon-dashboard"></i>
                       <span>Dashboard</span>
                   </a>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
-                      <i class="icon-globe"></i>
-                      <span>Location</span>
+                      <i class="icon-user"></i>
+                      <span>Student Manage</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ url('/location') }}">Location Create</a></li>
-                      <li><a class="" href="nestable.html">Location List</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-book"></i>
-                      <span>Schools</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ url('/school_reg_req') }}">Registration Requests</a></li>
-                      <li><a class="" href="{{ url('/scl_list') }}">Active Schools List</a></li>
+                      <li><a class="" href="{{ url('/new-stn-req') }}/{{ Session::get('AdminName') }}">New Student Requests</a></li>
+                      <li><a class="" href="{{ url('/view-active-stn') }}/{{ Session::get('AdminName') }}">Active Student Lists</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-user"></i>
-                      <span>Users Manage</span>
+                      <span>Teachers Manage</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ url('/new_users') }}">New Users Requests</a></li>
-                      <li><a class="" href="{{ url('/active_users') }}">Active Users Lists</a></li>
+                      <li><a class="" href="{{ asset('/new-tcr-req') }}/{{ Session::get('AdminName') }}">Teachers Add Request</a></li>
+                      <li><a class="" href="{{ asset('/view-active-tcr') }}/{{ Session::get('AdminName') }}">Active Teachers</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
-                  <a href="{{ asset('/classes_list') }}" class="">
-                      <i class="icon-th"></i>
-                      <span>Classes</span>
+                  <a href="javascript:;" class="">
+                      <i class="icon-book"></i>
+                      <span>Subjects Manage</span>
+                      <span class="arrow"></span>
                   </a>
+                  <ul class="sub">
+                      <li><a class="" href="{{ asset('/subject-add') }}/{{ Session::get('AdminName') }}">Add New Suject</a></li>
+                  </ul>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
@@ -368,17 +360,19 @@
                   </a>
                   <ul class="sub">
                       <li><a class="" href="{{ asset('/class-routine') }}">View Class Routine</a></li>
+                      <li><a class="" href="{{ asset('/class-routine-add') }}">Add Class Routine</a></li>
+                      <li><a class="" href="{{ asset('/class-routine-edit') }}">Edit Class Routine</a></li>
                   </ul>
               </li>
 
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-user"></i>
-                      <span>Teachers</span>
+                      <span>Admins</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ asset('/teachers') }}">View School Teachers</a></li>
+                      <li><a class="" href="{{ asset('/admins-view') }}">View Admins</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
@@ -517,50 +511,50 @@
 
    <!-- BEGIN JAVASCRIPTS -->
    <!-- Load javascripts at bottom, this will reduce page load time -->
-   <script src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
-   <script src="{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-   <script type="text/javascript" src="{{ asset('assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
-   <script type="text/javascript" src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-   <script src="{{ asset('assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
-   <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery-1.8.3.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+   <script src="{{ asset('public/assets/fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
+   <script src="public/js/excanvas.js"></script>
+   <script src="public/js/respond.js"></script>
    <![endif]-->
 
-   <script src="{{ asset('assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}" type="text/javascript"></script>
-   <script src="{{ asset('js/jquery.sparkline.js') }}" type="text/javascript"></script>
-   <script src="{{ asset('assets/chart-master/Chart.js') }}"></script>
+   <script src="{{ asset('public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('public/js/jquery.sparkline.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('public/assets/chart-master/Chart.js') }}"></script>
 
    <!--common script for all pages-->
-   <script src="{{ asset('js/common-scripts.js') }}"></script>
+   <script src="{{ asset('public/js/common-scripts.js') }}"></script>
 
    <!--script for this page only-->
 
-   <script src="{{ asset('js/easy-pie-chart.js') }}"></script>
-   <script src="{{ asset('js/sparkline-chart.js') }}"></script>
-   <script src="{{ asset('js/home-page-calender.js') }}"></script>
-   <script src="{{ asset('js/chartjs.js') }}"></script>
+   <script src="{{ asset('public/js/easy-pie-chart.js') }}"></script>
+   <script src="{{ asset('public/js/sparkline-chart.js') }}"></script>
+   <script src="{{ asset('public/js/home-page-calender.js') }}"></script>
+   <script src="{{ asset('public/js/chartjs.js') }}"></script>
 
 
-   <script src="{{ asset('assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
-   <script src="{{ asset('js/jquery.blockui.js') }}"></script>
+   <script src="{{ asset('public/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
+   <script src="{{ asset('public/js/jquery.blockui.js') }}"></script>
    <!--script for this page-->
-   <script src="{{ asset('js/form-wizard.js') }}"></script>
+   <script src="{{ asset('public/js/form-wizard.js') }}"></script>
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
-   <script src="js/excanvas.js"></script>
-   <script src="js/respond.js"></script>
+   <script src="public/js/excanvas.js"></script>
+   <script src="public/js/respond.js"></script>
    <![endif]-->
-   <script type="text/javascript" src="{{ asset('assets/chosen-bootstrap/chosen/chosen.jquery.min.js') }}"></script>
-   <script type="text/javascript" src="{{ asset('assets/uniform/jquery.uniform.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/chosen-bootstrap/chosen/chosen.jquery.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('public/assets/uniform/jquery.uniform.min.js') }}"></script>
 
    <!-- END JAVASCRIPTS -->
    <script>
        $(function () {
-           $(" input[type=radio], input[type=checkbox]").uniform();
+           //$(" input[type=radio], input[type=checkbox]").uniform();
        });
    </script> 
    
@@ -638,3 +632,15 @@
 </body>
 <!-- END BODY -->
 </html>
+
+
+
+
+                                        <th>Day</th>
+                                        <th>1st Class</th>
+                                        <th>2nd Class</th>
+                                        <th>3rd Class</th>
+                                        <th>4th Class</th>
+                                        <th>5th Class</th>
+                                        <th>6th Class</th>
+                                        <th>7th Class</th>

@@ -25,28 +25,13 @@
 		<p>Dont' waste your time. Registrater in our site and manage your school very easily. </p>
 		<h1>How many option you will get from here:-</h1>
 		<ul class="option_list">
-			<li><a href="">Student Management</a></li>
-			<li><a href="">Teacher Management</a></li>
-			<li><a href="">User Management</a></li>
-			<li><a href="">Parents Management</a></li>
-			<li><a href="">Exam Management</a></li>
-			<li><a href="">Fees Management</a></li>
-			<li><a href="">Result Management</a></li>
-			<li><a href="">Notice Board Management</a></li>
-			<li><a href="">Notification Management</a></li>
-			<li><a href="">Report Management</a></li>
-			<li><a href="">Class Routine Management</a></li>
-			<li><a href="">Staff Management</a></li>
-			<li><a href="">Staff Salary Management</a></li>
-			<li><a href="">Staff Promotion Management</a></li>
-			<li><a href="">Techer-Student Conversation</a></li>
-			<li><a href="">Techer-Techer Conversation</a></li>
-			<li><a href="">Student-Student Conversation</a></li>
-			<li><a href="">Admin Panel</a></li>
+			@foreach ($features as $feat)
+				<li><a href="">{{ $feat->feature }}</a></li>
+			@endforeach
 		</ul>
 	</div>
 	<div class="col-lg-7">
-		<img src="{{ asset('img/school-management-soft.jpg') }}" width="100%" alt="">
+		<img src="{{ asset('public/img/school-management-soft.jpg') }}" width="100%" alt="">
 	</div>
 </div>
 

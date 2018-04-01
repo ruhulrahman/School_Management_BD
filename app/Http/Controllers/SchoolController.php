@@ -23,7 +23,8 @@ class SchoolController extends Controller
     }
     public function features()
     {
-        $home_content = view('home_content');
+        $features = DB::table('features')->get();
+        $home_content = view('home_content')->with('features', $features);
         return view('index')->with('content', $home_content);
     }
 
@@ -45,14 +46,6 @@ class SchoolController extends Controller
     {
         
         return view('auth.school_reg');
-    }
-    public function teachers(){
-        $days = DB::table('days')->get();
-        $index_content = view('admin.teachers')
-        ->with('Days', $days);
-        
-        return view('admin.index')
-        ->with('page_content', $index_content);
     }
 
 

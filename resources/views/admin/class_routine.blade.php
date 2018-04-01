@@ -64,47 +64,39 @@
                             </div>
                             <div class="widget-body">
                                 <table class="table table-bordered">
+                                  <tr>
+                                    <td>Select Your Class Name to view routine</td>
+                                    <td>
+                                      <select name="class_id" id="">
+                                        <?php $classes = DB::table('class')->get(); ?>
+                                        @foreach ($classes as $cls)
+                                          <option value="">{{ $cls->class_name }}</option>
+                                        @endforeach                                        
+                                      </select>
+                                    </td>
+                                  </tr>
+                                </table>
+                                <br>
+                                <h3>Class: Two Routine</h3>
+                                <table class="table table-bordered">
                                     <thead>
+
+                                      
                                     <tr>
-                                        <th>Day</th>
-                                        <th>Subject Name</th>
-                                        <th>Class Time</th>
-                                        <th>Teacher's Name</th>
+                                      <?php $days = DB::table('days')->orderBy('id', 'asc')->get();?>
+                                      <th>Time</th>
+                                      @foreach ($days as $day)
+                                        <th>{{ $day->day }}</th>
+                                      @endforeach
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach ($Days as $day)
-                                        {{-- expr --}}
-                                      
+                                      @foreach ($routine as $rtn)
                                     <tr>
-                                        <td rowspan="6">{{ $day->day }}</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
+                                        <td>{{ $rtn->class_time }}</td>
+                                        <td>{{ $rtn->subject_name_en }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" style="text-align: center; color: red;">Tifin Time: 1:30PM to 2:15PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                    </tr>
+
                                     @endforeach
                                     </tbody>
                                 </table>

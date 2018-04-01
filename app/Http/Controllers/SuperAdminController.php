@@ -22,7 +22,7 @@ class SuperAdminController extends Controller {
         if ($superAdminId != Null) {
             return Redirect::to('/super-dashboard/')->send();
         }
-        return view('admin.login');
+        return view('super.login');
     }
 
     public function super_dashboard() {
@@ -34,8 +34,8 @@ class SuperAdminController extends Controller {
         //$school_reg = DB::table('school_reg')->count();
 
 
-        $index_content = view('admin.index_page_content');
-        return view('admin.index')->with('page_content', $index_content);
+        $index_content = view('super.index_page_content');
+        return view('super.index')->with('page_content', $index_content);
     }
 
     public function superAdminLogin(Request $request) {
@@ -58,8 +58,8 @@ class SuperAdminController extends Controller {
     }
 
     public function location() {
-        $index_content = view('admin.location');
-        return view('admin.index')->with('page_content', $index_content);
+        $index_content = view('super.location');
+        return view('super.index')->with('page_content', $index_content);
     }
 
     public function division($id) {
@@ -194,10 +194,10 @@ class SuperAdminController extends Controller {
         $days = DB::table('days')                    
                     ->orderBy('id', 'asc')
                     ->get();
-        $index_content = view('admin.class_routine')
+        $index_content = view('super.class_routine')
                 ->with('Days', $days);
 
-        return view('admin.index')
+        return view('super.index')
                         ->with('page_content', $index_content);
     }
 
@@ -209,10 +209,10 @@ class SuperAdminController extends Controller {
                     ->orderBy('schools_reg.id', 'desc')
                     ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
                     ->get();
-        $index_content = view('admin.scl_request')
+        $index_content = view('super.scl_request')
                 ->with('scl_reqs', $scl_reqs);
 
-        return view('admin.index')
+        return view('super.index')
                         ->with('page_content', $index_content);
     }
 
@@ -224,10 +224,10 @@ class SuperAdminController extends Controller {
                     ->orderBy('schools_reg.id', 'desc')
                     ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
                     ->get();
-        $index_content = view('admin.scl_list')
+        $index_content = view('super.scl_list')
                 ->with('scl_reqs', $scl_reqs);
 
-        return view('admin.index')
+        return view('super.index')
                         ->with('page_content', $index_content);
     }
 
@@ -279,8 +279,8 @@ class SuperAdminController extends Controller {
             return Redirect::to('/super/')->send();
         }else{
             $classes = DB::table('class')->get();
-            $classes_list = view('admin.classes_list')->with('classes', $classes);
-            return view('admin.index')
+            $classes_list = view('super.classes_list')->with('classes', $classes);
+            return view('super.index')
                 ->with('page_content', $classes_list);
         }
     }
@@ -322,10 +322,10 @@ class SuperAdminController extends Controller {
                     ->where('id', $id)
                     ->get();
         $classes = DB::table('class')->get();
-        $classes_list = view('admin.class_edit')
+        $classes_list = view('super.class_edit')
                     ->with('class', $class)
                     ->with('classes', $classes);
-        return view('admin.index')
+        return view('super.index')
             ->with('page_content', $classes_list);
     }
 
@@ -362,8 +362,8 @@ class SuperAdminController extends Controller {
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
 
-        $new_users_page = view('admin.new_users')->with('new_users', $new_users);
-        return view('admin.index')->with('page_content', $new_users_page);
+        $new_users_page = view('super.new_users')->with('new_users', $new_users);
+        return view('super.index')->with('page_content', $new_users_page);
     }
     public function active_users()
     {
@@ -375,8 +375,8 @@ class SuperAdminController extends Controller {
                     ->select('users.*', 'thana.thana_name', 'district.district_name')
                     ->get();
 
-        $new_users_page = view('admin.users')->with('new_users', $new_users);
-        return view('admin.index')->with('page_content', $new_users_page);
+        $new_users_page = view('super.users')->with('new_users', $new_users);
+        return view('super.index')->with('page_content', $new_users_page);
     }
 
     public function user_active($id){
@@ -413,6 +413,97 @@ class SuperAdminController extends Controller {
         }else{
             Session::put('error', 'User Not Deleted!!!');
         }
+    }
+
+    public function features_add_page()
+    {
+        $features = DB::table('features')->get();
+        $add_features = view('super.add_features')->with('features', $features);
+        return view('super.index')->with('page_content', $add_features);
+    }
+
+    public function features_create(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                    'feature' => 'unique:features,feature',
+                        ], [
+                    'feature.unique' => 'This feature already added.',
+        ]);
+
+        if ($validator->passes()):
+            $feature = $request->feature;
+            
+            DB::table('features')->insert(['feature' => $feature]);
+            
+            return response()->json(['success' => '!!! Feature successfully added. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function feature_edit($id)
+    {
+        $feature = DB::table('features')
+                    ->where('id', $id)
+                    ->get();
+        $features = DB::table('features')->get();
+        $feature_edit = view('super.feature_edit')
+                    ->with('feature', $feature)
+                    ->with('features', $features);
+        return view('super.index')
+            ->with('page_content', $feature_edit);
+    }
+
+    public function feature_update(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+                    'feature' => 'unique:features,feature',
+                        ], [
+                    'feature.unique' => 'This feature no change anything.',
+        ]);
+
+        if ($validator->passes()):
+            $feature = $request->feature;
+            $id = $request->id;
+            
+            DB::table('features')
+                ->where('id', $id)
+                ->update(['feature' => $feature]);
+            
+            return response()->json(['success' => '!!! Feature successfully updated. !!!']);
+        else:
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+    }
+
+    public function feature_delete($id)
+    {
+        $delete = DB::table('features')
+                    ->where('id', $id)
+                    ->delete();
+        if($delete){
+            Session::put('message', 'Feature Deleted!!!');
+            return Redirect::to('/features_add_page');
+        }else{
+            Session::put('error', 'Feature Not Deleted!!!');
+        }
+    }
+
+    public function teachers(){
+        $users = DB::table('users')
+                    ->leftJoin('thana', 'thana.id', '=', 'users.thana_id')
+                    ->rightJoin('district', 'district.id', '=', 'thana.district_id')
+                    ->where('status','=', '1')
+                    ->where('user_type','=', 'teacher')
+                    ->orderBy('users.id', 'desc')
+                    ->select('users.*', 'thana.thana_name', 'district.district_name')
+                    ->get();
+        $index_content = view('super.teachers')
+        ->with('users', $users);
+        
+        return view('super.index')
+        ->with('page_content', $index_content);
     }
 
 
