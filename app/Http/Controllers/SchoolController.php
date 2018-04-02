@@ -22,12 +22,14 @@ class SchoolController extends Controller
         $UserID = Session::get('UserID');
         $user_check = DB::table('users')->where('id', $UserID)->first();
         if ($UserID != Null) {
-            if($user_check->user_type == 'student'){
-                return Redirect::to('/user-dashboard');
-            }elseif($user_check->user_type == 'teacher'){
-                return Redirect::to('/tcr-dashboard');
-            }else{
+            if($user_check->user_type === 'teacher' AND $user_check->power === 'admin'){
                 return Redirect::to('/tcr-admin-dashboard');
+            }elseif($user_check->user_type === 'teacher' AND $user_check->power === NULL){
+                return Redirect::to('/tcr-dashboard');
+            }elseif($user_check->user_type == 'student'){
+                return Redirect::to('/user-dashboard');
+            }else{
+                return Redirect::to('/');
             }
         }
         
