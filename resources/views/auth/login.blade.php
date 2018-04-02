@@ -82,16 +82,28 @@
 
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Sign in to continue</h1>
+
+                <h3 style="color:red; text-align: center;">                       
+                  <?php
+                      $message = Session::get('message');
+                      if($message){
+                        echo $message;
+                        Session::put('message', null);
+                      }
+                  ?>                          
+                </h3>
+            <h1 class="text-center login-title">Login in to continue</h1>
             <div class="account-wall">
+                <h2 class="text-center text-success">Student, Teacher and Admin Teacher's Login Panel</h2>
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
-                <form class="form-signin">
-                <input type="text" class="form-control" placeholder="Email" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <button style="font-size: 16px;" class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
-                <a href="#" class="pull-right need-help" style="font-size: 14px;">Need help? </a><span class="clearfix"></span>
+                <form action="{{ url('/user-login-check') }}" method="post" id="" class="form-signin">
+                    {{ csrf_field() }}
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" autofocus><br>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter Your Password">
+                    <button style="font-size: 16px;" class="btn btn-lg btn-primary btn-block" type="submit">
+                        Login in</button>
+                    <a href="#" class="pull-right need-help" style="font-size: 14px;">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
             <a href="{{ asset('/registration') }}" class="text-center new-account" style="font-size: 14px; font-weight: 800;">Create an account </a>

@@ -267,21 +267,23 @@
                        <!-- BEGIN USER LOGIN DROPDOWN -->
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                               <img src="{{ asset('public/img/avatar1_small.jpg') }}" alt="">
+                              @foreach ($users as $user)      
+                               <img src="{{ $user->pic }}" alt="" style="width: 30px; height: 30px;">
+                              @endforeach
                                <span class="username">
                                  <?php
-                                  $AdminName = Session::get('AdminName');
-                                  if($AdminName){
-                                    echo $AdminName;                                    
+                                  $UserName = Session::get('UserName');
+                                  if($UserName){
+                                    echo $UserName;                                    
                                   }
-                                ?> Admin
+                                ?>
                                </span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                                <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="{{ URL::to('/logout-admin') }}"><i class="icon-key"></i> Log Out</a></li>
+                               <li><a href="{{ URL::to('/logout-user') }}"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -322,38 +324,6 @@
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
-                      <i class="icon-user"></i>
-                      <span>Student Manage</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ url('/new-stn-req') }}/{{ Session::get('AdminName') }}">New Student Requests</a></li>
-                      <li><a class="" href="{{ url('/view-active-stn') }}/{{ Session::get('AdminName') }}">Active Student Lists</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-user"></i>
-                      <span>Teachers Manage</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/new-tcr-req') }}/{{ Session::get('AdminName') }}">Teachers Add Request</a></li>
-                      <li><a class="" href="{{ asset('/view-active-tcr') }}/{{ Session::get('AdminName') }}">Active Teachers</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-book"></i>
-                      <span>Subjects Manage</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/subject-add') }}/{{ Session::get('AdminName') }}">Add New Suject</a></li>
-                  </ul>
-              </li>
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
                       <i class="icon-th"></i>
                       <span>Class Routine</span>
                       <span class="arrow"></span>
@@ -362,17 +332,6 @@
                       <li><a class="" href="{{ asset('/class-routine') }}">View Class Routine</a></li>
                       <li><a class="" href="{{ asset('/class-routine-add') }}">Add Class Routine</a></li>
                       <li><a class="" href="{{ asset('/class-routine-edit') }}">Edit Class Routine</a></li>
-                  </ul>
-              </li>
-
-              <li class="sub-menu">
-                  <a href="javascript:;" class="">
-                      <i class="icon-user"></i>
-                      <span>Admins</span>
-                      <span class="arrow"></span>
-                  </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/admins-view') }}">View Admins</a></li>
                   </ul>
               </li>
               <li class="sub-menu">

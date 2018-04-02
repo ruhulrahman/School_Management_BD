@@ -19,6 +19,18 @@ class SchoolController extends Controller
      */
     public function index()
     {
+        $UserID = Session::get('UserID');
+        $user_check = DB::table('users')->where('id', $UserID)->first();
+        if ($UserID != Null) {
+            if($user_check->user_type == 'student'){
+                return Redirect::to('/user-dashboard');
+            }elseif($user_check->user_type == 'teacher'){
+                return Redirect::to('/tcr-dashboard');
+            }else{
+                return Redirect::to('/tcr-admin-dashboard');
+            }
+        }
+        
         return view('auth.login');
     }
     public function features()

@@ -19,6 +19,8 @@ Auth::routes();
 
 
 
+
+
 //Admin Controller==========================================================
 Route::get('/admin/', 'AdminController@index');
 Route::get('/admin-dashboard/', 'AdminController@admin_dashboard');
@@ -133,8 +135,15 @@ Route::post('/scl-registration-submit', 'SchoolController@scl_registration_submi
 //User Controller Here==================================================
 //Route::get('/user_reg', 'HomeController@user_reg')->name('home');
 
+Route::get('/user-dashboard', 'UserController@user_dashboard');
+Route::get('/logout-user', 'UserController@logout_user');
+
+Route::get('/tcr-dashboard', 'UserController@tcr_dashboard');
+Route::get('/tcr-admin-dashboard', 'UserController@tcr_admin_dashboard');
+
 Route::post('/user_registration', 'UserController@user_registration');
 Route::post('/user_registration_teacher', 'UserController@user_registration_teacher');
+Route::post('/user-login-check', 'UserController@user_login_check');
 
 
 

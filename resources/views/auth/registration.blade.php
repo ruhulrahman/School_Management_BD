@@ -138,7 +138,8 @@ select.form-control:not([size]):not([multiple]) {
 <div id="login-form" style="display: block;">
 				<form action="{{ url('/user_registration') }}" method="post" id="scl_form" class="form-horizontal" role="form">
                 <h2>Student Registration Form</h2>
-                {{ csrf_field() }}                <div class="form-group">
+                {{ csrf_field() }}                
+                <div class="form-group">
                     <label for="name" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-9">
                         <input type="text" name="name" id="name" placeholder="Full Name" class="form-control" autofocus required="required">
