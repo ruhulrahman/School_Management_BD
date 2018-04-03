@@ -58,7 +58,7 @@ class UserController extends Controller
             $tableInfo['religion'] = $request->religion;
             $tableInfo['thana_id'] = $request->create_thana_id;
             $tableInfo['address'] = $request->address;
-            $tableInfo['slug'] = $request->name.$request->phone;
+            $tableInfo['slug'] = $request->name.$request->phone.$rand;
             $tableInfo['pic'] = $img_path;
             $tableInfo['user_type'] = 'student';
             $tableInfo['status'] = $rand;
@@ -115,7 +115,7 @@ class UserController extends Controller
             $tableInfo['religion'] = $request->religion_tcr;
             $tableInfo['thana_id'] = $request->create_thana_id_teacher;
             $tableInfo['address'] = $request->address_tcr;
-            $tableInfo['slug'] = $request->name.$request->phone_tcr;
+            $tableInfo['slug'] = $request->name_tcr.$request->phone_tcr.$rand;
             $tableInfo['pic'] = $img_path;
             $tableInfo['user_type'] = 'teacher';
             $tableInfo['rank'] = $request->rank_tcr;
@@ -156,12 +156,17 @@ class UserController extends Controller
                     Session::put('UserName', $user_check->name);
                     Session::put('UserSlug', $user_check->slug);
                     Session::put('UserID', $user_check->id);
+                    Session::put('Rel', $user_check->religion);
+                    Session::put('Power', $user_check->power);
+                    Session::put('UserType', $user_check->user_type);
                     if($user_check->user_type == 'student'){
                         return Redirect::to('/user-dashboard');
-                    }elseif($user_check->user_type == 'teacher'){
+                    }elseif($user_check->user_type == 'teacher' && $user_check->power != 'admin'){
                         return Redirect::to('/tcr-dashboard');
-                    }else{
+                    }elseif($user_check->user_type == 'teacher' && $user_check->power == 'admin'){
                         return Redirect::to('/tcr-admin-dashboard');
+                    }else{
+                        return Redirect::to('/');
                     }
                     
                 }else{
