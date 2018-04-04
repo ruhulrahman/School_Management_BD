@@ -22,7 +22,7 @@ Auth::routes();
 
 
 //Admin Controller==========================================================
-Route::get('/admin/', 'AdminController@index');
+Route::get('/super-admin/', 'AdminController@index');
 Route::get('/admin-dashboard/', 'AdminController@admin_dashboard');
 Route::get('/logout-admin', 'AdminController@logoutAdmin');
 
@@ -30,8 +30,8 @@ Route::post('/admin-login/', 'AdminController@AdminLogin');
 
 
 Route::middleware('admin')->group(function(){
-	Route::get('/class-routine', 'AdminController@class_routine');
-	Route::get('/class-routine-add', 'AdminController@class_routine_add');
+	Route::get('/view-class-routine', 'AdminController@view_class_routine');
+	//Route::get('/class-routine-add', 'AdminController@class_routine_add');
 
 	Route::get('/new-stn-req/{id}', 'AdminController@new_student_req');
 	Route::get('/view-active-stn/{id}', 'AdminController@view_active_stn');
@@ -68,7 +68,7 @@ Route::middleware('admin')->group(function(){
 
 
 //Super Admin Controller==========================================================
-Route::get('/super/', 'SuperAdminController@index');
+Route::get('/superpower/', 'SuperAdminController@index');
 Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
 Route::get('/logout-super', 'SuperAdminController@logoutSuper');
 
@@ -134,12 +134,19 @@ Route::post('/scl-registration-submit', 'SchoolController@scl_registration_submi
 
 //User Controller Here==================================================
 //Route::get('/user_reg', 'HomeController@user_reg')->name('home');
+// Route::middleware('user')->group(function(){	
 
-Route::get('/user-dashboard', 'UserController@user_dashboard');
+// });
+
+Route::get('/class-routine-add', 'UserController@class_routine_add');
 Route::get('/logout-user', 'UserController@logout_user');
+Route::get('/student', 'UserController@user_dashboard');
+Route::get('/teacher', 'UserController@tcr_dashboard');
+Route::get('/admin', 'UserController@tcr_admin_dashboard');
 
-Route::get('/tcr-dashboard', 'UserController@tcr_dashboard');
-Route::get('/tcr-admin-dashboard', 'UserController@tcr_admin_dashboard');
+
+
+
 
 Route::post('/user_registration', 'UserController@user_registration');
 Route::post('/user_registration_teacher', 'UserController@user_registration_teacher');

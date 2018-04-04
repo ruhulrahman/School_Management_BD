@@ -267,9 +267,10 @@
                        <!-- BEGIN USER LOGIN DROPDOWN -->
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                              @foreach ($users as $user)      
+                            
+                              {{-- @foreach ($users as $user)      
                                <img src="{{ $user->pic }}" alt="" style="width: 30px; height: 30px;">
-                              @endforeach
+                              @endforeach --}}
                                <span class="username">
                                  <?php
                                   $UserName = Session::get('UserName');
@@ -329,7 +330,7 @@
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="{{ asset('/class-routine') }}">View Class Routine</a></li>
+                      <li><a class="" href="{{ asset('/view-class-routine') }}">View Class Routine</a></li>
                       <li><a class="" href="{{ asset('/class-routine-add') }}">Add Class Routine</a></li>
                       <li><a class="" href="{{ asset('/class-routine-edit') }}">Edit Class Routine</a></li>
                   </ul>

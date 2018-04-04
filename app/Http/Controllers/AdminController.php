@@ -201,17 +201,16 @@ class AdminController extends Controller
 //        }
     }
 
-    public function class_routine() {
+    public function view_class_routine() {
         $routine = DB::table('class_routine')
-                    ->join('class', 'class_routine.class_id', '=', 'class.id')
-                    ->join('days', 'class_routine.day_id', '=', 'days.id')
-                    ->join('subject', 'class_routine.subject_id', '=', 'subject.id')
-                    ->select('class_routine.*', 'class.class_name', 'subject.subject_name_en', 'days.day')
+                    ->join('class_time', 'class_routine.time_id', '=', 'class_time.id')
+                    ->join('subject', 'class_routine.saturday', '=', 'subject.id')
+                    ->select('class_routine.*', 'class_time.time', 'subject.subject_name_en')
                     ->get();
-        $index_content = view('admin.class_routine')
+        $index_content = view('admins.view_class_routine')
                 ->with('routine', $routine);
 
-        return view('admin.index')
+        return view('admins.admins_dashboard')
                         ->with('page_content', $index_content);
     }
 
@@ -721,23 +720,35 @@ class AdminController extends Controller
     {
         $validator = Validator::make($request->all(), [
                     'class_id' => 'required',
-                    'day_id' => 'required',
-                    'subject_id' => 'required',
-                    'class_time' => 'required',
+                    'time_id' => 'required',
+                    'saturday' => 'required',
+                    'sunday' => 'required',
+                    'monday' => 'required',
+                    'tuesday' => 'required',
+                    'wednesday' => 'required',
+                    'thursday' => 'required',
                         ], [
                     'class_id.required' => 'You can\'t leave this empty.',
-                    'day_id.required' => 'You can\'t leave this empty.',
-                    'subject_id.required' => 'You can\'t leave this empty.',
-                    'class_time.required' => 'You can\'t leave this empty.',
+                    'time_id.required' => 'You can\'t leave this empty.',
+                    'saturday.required' => 'You can\'t leave this empty.',
+                    'sunday.required' => 'You can\'t leave this empty.',
+                    'monday.required' => 'You can\'t leave this empty.',
+                    'tuesday.required' => 'You can\'t leave this empty.',
+                    'wednesday.required' => 'You can\'t leave this empty.',
+                    'thursday.required' => 'You can\'t leave this empty.',
         ]);
 
         if ($validator->passes()):
         $data = array();
-        $data['scl_code'] = Session::get('AdminName');
+        $data['scl_code'] = Session::get('SCL_code');
         $data['class_id'] = $request->class_id;
-        $data['day_id'] = $request->day_id;
-        $data['subject_id'] = $request->subject_id;
-        $data['class_time'] = $request->class_time;
+        $data['time_id'] = $request->time_id;
+        $data['saturday'] = $request->saturday;
+        $data['sunday'] = $request->sunday;
+        $data['monday'] = $request->monday;
+        $data['tuesday'] = $request->tuesday;
+        $data['wednesday'] = $request->wednesday;
+        $data['thursday'] = $request->thursday;
             
             DB::table('class_routine')->insert($data);
             

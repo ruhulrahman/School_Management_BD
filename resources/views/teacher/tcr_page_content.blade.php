@@ -23,10 +23,7 @@
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Teacher Dashboard <?php $power = Session::get('Power'); ?>
-                     @if ($power)
-                         {{ $power }}
-                     @endif
+                     Teacher Dashboard
                    </h3>
                    <ul class="breadcrumb">
                        <li>

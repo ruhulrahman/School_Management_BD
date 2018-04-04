@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Redirect;
 use Closure;
 use Session;
-class AdminMiddleware
+
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,9 +17,12 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $AdminId = Session::get('AdminId');
-        if($AdminId == null){
-            return Redirect::to('/super-admin');
+        $userId = Session::get('UserID');        
+        $UserType = Session::get('UserType');
+        $Power = Session::get('Power');
+
+        if ($userId == Null) {
+            return Redirect::to('/')->send();
         }
 
         return $next($request);

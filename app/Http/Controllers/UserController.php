@@ -138,33 +138,30 @@ class UserController extends Controller
         $password = md5($request->password);
 
         $user_check = DB::table('users')
+                        ->join('schools_reg', 'users.scl_code', '=', 'schools_reg.scl_code')
                         ->where('email', $email)
                         ->where('password', $password)
+                        ->select('users.*', 'schools_reg.scl_expire_date')
                         ->first();
         //$scl_info = DB::table('schools_reg')->get();
         
         if($user_check){
-            $activation_check = DB::table('users')
-                        ->where('id', $user_check->id)
-                        ->where('status', '1')
-                        ->first();
-            if($activation_check){
-                $scl_check = DB::table('schools_reg')
-                                ->where('scl_code', $activation_check->scl_code)
-                                ->first();
-                if(date('Y-m-d') < $scl_check->scl_expire_date){                   
+            if($user_check->status == '1'){
+                if(date('Y-m-d') < $user_check->scl_expire_date){                   
                     Session::put('UserName', $user_check->name);
                     Session::put('UserSlug', $user_check->slug);
                     Session::put('UserID', $user_check->id);
-                    Session::put('Rel', $user_check->religion);
+                    Session::put('SCL_code', $user_check->scl_code);
+
                     Session::put('Power', $user_check->power);
                     Session::put('UserType', $user_check->user_type);
+
                     if($user_check->user_type == 'student'){
-                        return Redirect::to('/user-dashboard');
+                        return Redirect::to('/student');
                     }elseif($user_check->user_type == 'teacher' && $user_check->power != 'admin'){
-                        return Redirect::to('/tcr-dashboard');
+                        return Redirect::to('/teacher');
                     }elseif($user_check->user_type == 'teacher' && $user_check->power == 'admin'){
-                        return Redirect::to('/tcr-admin-dashboard');
+                        return Redirect::to('/admin');
                     }else{
                         return Redirect::to('/');
                     }
@@ -173,8 +170,14 @@ class UserController extends Controller
                     Session::put('message', 'Your School expire date has been over!!');
                     return Redirect::to('/');
                 }
+
+
+
+            }elseif($user_check->status == '0'){
+                Session::put('message', 'You are block user!!');
+                return Redirect::to('/');
             }else {
-                Session::put('message', 'You are not activated user!!');
+                Session::put('message', 'Your account didn\'t not activated!!');
                 return Redirect::to('/');
             }
         }else{
@@ -186,49 +189,84 @@ class UserController extends Controller
 
 
     public function user_dashboard() {
-        $userId = Session::get('UserID');
+        $userId = Session::get('UserID');        
+        $UserType = Session::get('UserType');
+        $Power = Session::get('Power');
         if ($userId == Null) {
             return Redirect::to('/')->send();
+        }elseif($UserType == 'student' && $Power == Null){
+            $users = DB::table('users')->where('id', $userId)->get();
+            //$school_reg = DB::table('school_reg')->count();
+            $user_page_content = view('users.user_page_content');
+            return view('users.user_dashboard')
+            ->with('users', $users)
+            ->with('page_content', $user_page_content);
+        }else{
+          return Redirect::to('/')->send();  
         }
-        $users = DB::table('users')->where('id', $userId)->get();
-        //$school_reg = DB::table('school_reg')->count();
-        $user_page_content = view('users.user_page_content');
-        return view('users.user_dashboard')
-        ->with('users', $users)
-        ->with('page_content', $user_page_content);
+    }
+
+    public function class_routine_add()
+    {
+        $userId = Session::get('UserID');
+
+        $days = DB::table('days')                    
+                    ->orderBy('id', 'asc')
+                    ->get();
+
+        $users = DB::table('users')->where('id', $userId)->first();
+
+        $index_content = view('admins.add_class_routine')
+                        ->with('Days', $days);
+
+        return view('admins.admins_dashboard')
+                        ->with('page_content', $index_content)                        
+                        ->with('users', 'Ruhul'); 
     }
 
 
     public function tcr_dashboard() {
-        $userId = Session::get('UserID');
+        $userId = Session::get('UserID');        
+        $UserType = Session::get('UserType');
+        $Power = Session::get('Power');
         if ($userId == Null) {
             return Redirect::to('/')->send();
+        }elseif($UserType == 'teacher' && $Power != 'admin'){
+            $users = DB::table('users')->where('id', $userId)->get();
+            //$school_reg = DB::table('school_reg')->count();
+            $user_page_content = view('teacher.tcr_page_content');
+            return view('teacher.tcr_dashboard')
+            ->with('users', $users)
+            ->with('page_content', $user_page_content);
+        }else{
+           return Redirect::to('/')->send(); 
         }
-        $users = DB::table('users')->where('id', $userId)->get();
-        //$school_reg = DB::table('school_reg')->count();
-        $user_page_content = view('teacher.tcr_page_content');
-        return view('teacher.tcr_dashboard')
-        ->with('users', $users)
-        ->with('page_content', $user_page_content);
     }
 
     public function tcr_admin_dashboard() {
         $userId = Session::get('UserID');
+        $UserType = Session::get('UserType');
+        $Power = Session::get('Power');
         if ($userId == Null) {
             return Redirect::to('/')->send();
+        }else if($UserType == 'teacher' && $Power == 'admin'){
+            $users = DB::table('users')->where('id', $userId)->get();
+            //$school_reg = DB::table('school_reg')->count();
+            $user_page_content = view('admins.admins_page_content');
+            return view('admins.admins_dashboard')
+            ->with('users', $users)
+            ->with('page_content', $user_page_content);  
+        }else{
+            return Redirect::to('/')->send();
         }
-        $users = DB::table('users')->where('id', $userId)->get();
-        //$school_reg = DB::table('school_reg')->count();
-        $user_page_content = view('admins.admins_page_content');
-        return view('admins.admins_dashboard')
-        ->with('users', $users)
-        ->with('page_content', $user_page_content);
     }
 
 
     public function logout_user(){
         Session::put('UserName', null);
         Session::put('UserSlug', null);
+        Session::put('UserID', null);
+        Session::put('UserType', null);
         Session::put('UserID', null);
         Session::put('message', 'You are successfully logout');
         return Redirect::to('/');

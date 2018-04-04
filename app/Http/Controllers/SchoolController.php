@@ -19,17 +19,20 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $UserID = Session::get('UserID');
+        $userId = Session::get('UserID');        
         $UserType = Session::get('UserType');
         $Power = Session::get('Power');
-        //$user_check = DB::table('users')->where('id', $UserID)->first();
-        if ($UserID != Null) {
+
+        if ($userId != Null) {
+            if($UserType == 'student' && $Power == Null){
+               return Redirect::to('/student')->send(); 
+            }
+
+            if($UserType == 'teacher' && $Power != 'admin'){
+               return Redirect::to('/teacher')->send(); 
+            }
             if($UserType == 'teacher' && $Power == 'admin'){
-                return Redirect::to('/tcr-admin-dashboard');
-            }elseif($user_check->user_type == 'student'){
-                return Redirect::to('/user-dashboard');
-            }else{
-                return Redirect::to('/tcr-dashboard');
+               return Redirect::to('/admin')->send(); 
             }
         }
         

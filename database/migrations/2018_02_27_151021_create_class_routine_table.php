@@ -16,10 +16,14 @@ class CreateClassRoutineTable extends Migration
         Schema::create('class_routine', function (Blueprint $table) {
             $table->increments('id');
             $table->string('scl_code');
-            $table->string('class_id');
-            $table->string('day_id');
-            $table->string('subject_id');
-            $table->string('class_time');
+            $table->unsignedInteger('class_id');
+            $table->unsignedInteger('time_id');
+            $table->unsignedInteger('saturday');
+            $table->unsignedInteger('sunday');
+            $table->unsignedInteger('monday');
+            $table->unsignedInteger('tuesday');
+            $table->unsignedInteger('wednesday');
+            $table->unsignedInteger('thursday');
             $table->timestamps();
         });
     }

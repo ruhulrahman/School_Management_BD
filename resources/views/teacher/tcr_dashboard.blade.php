@@ -326,13 +326,7 @@
                   <a href="javascript:;" class="">
                       <i class="icon-th"></i>
                       <span>Class Routine</span>
-                      <span class="arrow"></span>
                   </a>
-                  <ul class="sub">
-                      <li><a class="" href="{{ asset('/class-routine') }}">View Class Routine</a></li>
-                      <li><a class="" href="{{ asset('/class-routine-add') }}">Add Class Routine</a></li>
-                      <li><a class="" href="{{ asset('/class-routine-edit') }}">Edit Class Routine</a></li>
-                  </ul>
               </li>
               <li class="sub-menu">
                   <a href="javascript:;" class="">
