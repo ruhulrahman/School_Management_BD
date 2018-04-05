@@ -18,12 +18,12 @@ class CreateClassRoutineTable extends Migration
             $table->string('scl_code');
             $table->unsignedInteger('class_id');
             $table->unsignedInteger('time_id');
-            $table->unsignedInteger('saturday');
-            $table->unsignedInteger('sunday');
-            $table->unsignedInteger('monday');
-            $table->unsignedInteger('tuesday');
-            $table->unsignedInteger('wednesday');
-            $table->unsignedInteger('thursday');
+            $table->string('saturday');
+            $table->string('sunday');
+            $table->string('monday');
+            $table->string('tuesday');
+            $table->string('wednesday');
+            $table->string('thursday');
             $table->timestamps();
         });
     }

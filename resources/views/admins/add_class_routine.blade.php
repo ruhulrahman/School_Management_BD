@@ -106,7 +106,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                            
                                       </select>
                                     </td>
@@ -118,7 +118,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                             
                                       </select>
                                     </td>
@@ -130,7 +130,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                            
                                       </select>
                                     </td>
@@ -142,7 +142,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                             
                                       </select>
                                     </td>
@@ -154,7 +154,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                             
                                       </select>
                                     </td>
@@ -166,7 +166,7 @@ input[type="radio"], input[type="checkbox"] {
                                         <option value="">Select Subject</option>
                                         <?php $subjects = DB::table('subject')->orderBy('subject_name_en', 'asc')->get(); ?>
                                         @foreach ($subjects as $sub)
-                                          <option value="{{ $sub->id }}">{{ $sub->subject_name_en }}</option>
+                                          <option value="{{ $sub->subject_name_en }}">{{ $sub->subject_name_en }}</option>
                                         @endforeach                           
                                       </select>
                                     </td>

@@ -30,7 +30,7 @@ Route::post('/admin-login/', 'AdminController@AdminLogin');
 
 
 Route::middleware('admin')->group(function(){
-	Route::get('/view-class-routine', 'AdminController@view_class_routine');
+	Route::match(['get', 'post'],'/view-class-routine', 'AdminController@view_class_routine');
 	//Route::get('/class-routine-add', 'AdminController@class_routine_add');
 
 	Route::get('/new-stn-req/{id}', 'AdminController@new_student_req');

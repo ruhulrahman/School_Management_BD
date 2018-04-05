@@ -67,12 +67,17 @@
                                   <tr>
                                     <td>Select Your Class Name to view routine</td>
                                     <td>
-                                      <select name="class_id" id="">
-                                        <?php $classes = DB::table('class')->get(); ?>
-                                        @foreach ($classes as $cls)
-                                          <option value="">{{ $cls->class_name }}</option>
-                                        @endforeach                                        
-                                      </select>
+                                      <form action="{{ url('/view-class-routine') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <select name="class_id" id="">
+                                          <option value="">Class Select</option>
+                                          <?php $classes = DB::table('class')->get(); ?>
+                                          @foreach ($classes as $cls)
+                                            <option value="{{ $cls->id }}">{{ $cls->class_name }}</option>
+                                          @endforeach                                        
+                                        </select>
+                                        <input type="submit" value="Sumit" class="btn btn-primary">
+                                      </form>
                                     </td>
                                   </tr>
                                 </table>
@@ -96,16 +101,12 @@
                                       @foreach ($routine as $rtn)         
                                       <tr>
                                           <td>{{ $rtn->time }}</td>
-                                          <?php $subject = DB::table('subject')->get();?>
-                                          @if ($subject->id == )
-                                            {{-- expr --}}
-                                          @endif
-                                          <td>{{ $rtn->subject_name_en }}</td>
-                                          <td>{{ $rtn->subject_name_en }}</td>
-                                          <td>{{ $rtn->subject_name_en }}</td>
-                                          <td>{{ $rtn->subject_name_en }}</td>
-                                          <td>{{ $rtn->subject_name_en }}</td>
-                                          <td>{{ $rtn->subject_name_en }}</td>
+                                          <td>{{ $rtn->saturday }}</td>
+                                          <td>{{ $rtn->sunday }}</td>
+                                          <td>{{ $rtn->monday }}</td>
+                                          <td>{{ $rtn->tuesday }}</td>
+                                          <td>{{ $rtn->wednesday }}</td>
+                                          <td>{{ $rtn->thursday }}</td>
                                       </tr>
                                     @endforeach
                                     </tbody>

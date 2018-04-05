@@ -201,12 +201,20 @@ class AdminController extends Controller
 //        }
     }
 
-    public function view_class_routine() {
+    public function view_class_routine(Request $request) {
+        $class = "";
+        if($request->class_id){
+            $class = $request->class_id;
+        }else{
+            $class = 1;
+        }
+
         $routine = DB::table('class_routine')
                     ->join('class_time', 'class_routine.time_id', '=', 'class_time.id')
-                    ->join('subject', 'class_routine.saturday', '=', 'subject.id')
-                    ->select('class_routine.*', 'class_time.time', 'subject.subject_name_en')
+                    ->where('class_routine.class_id', $class)
+                    ->select('class_routine.*', 'class_time.time')
                     ->get();
+
         $index_content = view('admins.view_class_routine')
                 ->with('routine', $routine);
 
